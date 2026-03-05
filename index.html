@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Newsletter Builder – v17</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f4f6; --card:#ffffff; --line:#e5e7eb; --text:#111827; --muted:#6b7280;
+  --brand:#1a1a2e; --gold:#c8960c; --soft:#eef2ff; --danger:#fee2e2; --ok:#065f46;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Open Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1600px;margin:0 auto;padding:16px}
+.top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end}
+h1{margin:0;font-size:20px}
+.sub{margin-top:4px;font-size:12px;color:var(--muted);line-height:1.45;max-width:920px}
+.pill{display:inline-block;background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:850;vertical-align:middle}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{border:0;border-radius:10px;padding:9px 11px;font-weight:850;cursor:pointer;transition:background-color .12s ease,transform .08s ease}
+button:active{transform:scale(.97)}
+.primary{background:var(--brand);color:#fff}.ghost{background:var(--soft);color:var(--brand)}.danger{background:var(--danger);color:#7f1d1d}.mini{padding:7px 9px;font-size:12px}
+.status{font-size:12px;color:var(--muted);min-width:90px}
+.grid{display:grid;grid-template-columns:600px 1fr;gap:14px;margin-top:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+details{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+details+details{margin-top:10px}
+summary{list-style:none;cursor:pointer;padding:10px 12px;background:#fafafa;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+.sum-title{font-weight:950}.sum-meta{font-size:12px;color:var(--muted)}.pad{padding:12px}
+label{display:block;font-size:12px;font-weight:750;margin:10px 0 6px;color:#374151}
+input[type=text],input[type=url],input[type=email],textarea,select{width:100%;border:1px solid #d1d5db;border-radius:10px;padding:9px 10px;font-size:14px;background:#fff}
+textarea{min-height:88px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.hint{font-size:12px;color:var(--muted);line-height:1.45;margin-top:8px}
+.note{font-size:12px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;padding:9px 10px;border-radius:10px;line-height:1.45}
+.tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);padding:0 0 10px 0;margin:0 0 10px 0}.tab{background:#fff;border:1px solid var(--line);color:#111;border-radius:999px;padding:7px 12px;font-weight:950;font-size:12px;cursor:pointer}.tab.active{border-color:var(--brand);color:var(--brand)}
+.pane{display:none}.pane.active{display:block}
+.previewWrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}.previewTop{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line);background:#fafafa;gap:10px;flex-wrap:wrap}.scale{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}.scale input{width:180px}
+.previewStage{background:#e5e7eb;padding:18px 0;overflow:auto;height:950px;scroll-behavior:smooth}#previewHost{transform-origin:top center;margin:0 auto;width:600px;max-width:600px}
+.out{width:100%;min-height:920px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.addRow{display:flex;gap:8px;flex-wrap:wrap}.addRow button{font-size:12px;padding:8px 10px}
+.sectionList{display:flex;flex-direction:column;gap:8px;margin-top:10px}.sectionItem{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}.sectionItem.active{border-color:var(--brand);box-shadow:0 0 0 2px rgba(26,26,46,.06)}
+.sectionBar{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;background:#fafafa;border-bottom:1px solid var(--line);cursor:pointer}.sectionTitle{font-size:13px;font-weight:950}.sectionBtns{display:flex;gap:6px;flex-wrap:wrap}.bbtn{padding:7px 9px;border-radius:10px;font-size:12px;font-weight:900;background:var(--soft);color:var(--brand);cursor:pointer}.bbtn.d{background:var(--danger);color:#7f1d1d}.bbtn.s{background:#ecfeff;color:#155e75}.sectionBody{padding:10px}
+.previewEmail{background:#fff;border:1px solid #d9d9d9;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.05)}.previewHero img{display:block;width:100%;height:auto}.previewTopbar{background:#1a1a2e;color:#fff;padding:11px 32px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}.goldLine{height:3px;background:#c8960c}.previewBody{padding:14px 32px 0 32px}.previewDivider{height:1px;background:#e4e4e4;margin:0 -32px 0 -32px}.previewSection{padding:28px 0 26px 0}.previewSection.alt{background:#f8f8f8;margin:0 -32px;padding:28px 32px 26px 32px}.previewFooter{background:#1a1a2e;color:#9099bb;padding:0}.previewFooterInner{padding:20px 32px 26px 32px}
+.h1{margin:0 0 16px 0;font-size:26px;line-height:1.25;color:#1a1a2e;font-weight:700}.h2{margin:0;font-size:21px;line-height:1.2;color:#1a1a2e;font-weight:700}.p{margin:0 0 12px 0;font-size:15px;line-height:1.7;color:#2c2c2c}.titleBar{display:flex;align-items:center;gap:12px;margin-bottom:14px}.titleBar .bar{width:4px;align-self:stretch;background:#c8960c;border-radius:2px}
+.issuePanel{display:inline-block;background:#f6f1df;border:1px solid #e7d8a3;border-left:4px solid #c8960c;border-radius:8px;padding:12px 16px 12px 14px;margin-bottom:30px;box-shadow:0 1px 0 rgba(200,150,12,.08)}.issuePanel .k{margin:0 0 4px 0;font-size:12px;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:#7a6740;font-weight:700}.issuePanel .v{margin:0;font-size:14px;line-height:1.6;color:#2c2c2c}
+.box{background:#fcfcfb;border:1px solid #e7e2d2;border-left:4px solid #c8960c;border-radius:14px;padding:18px 18px 16px 18px;box-shadow:none}.box .t{margin:0 0 10px 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#777}.quote{background:#fdf8e8;border:1px solid #f0dfad;border-left:4px solid #c8960c;border-radius:14px;padding:15px 15px;box-shadow:none}.quote .q{margin:0 0 9px 0;font:italic 14px/1.65 Georgia,'Times New Roman',serif;color:#4a3f1a}.quote .r{font-size:12px;font-weight:700;color:#777}.icons{display:flex;gap:10px;margin:0 0 14px 0}.icons img{width:32px;height:32px;border-radius:6px;background:#fff;padding:2px;box-shadow:none}.btn{display:inline-block;background:#1a1a2e;color:#fff;padding:13px 24px;border-radius:5px;text-decoration:none;font-weight:600;font-size:15px}.smallBtn{display:inline-block;background:#1a1a2e;color:#fff;padding:9px 14px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:none}
+.nums .row{padding:6px 0;border-bottom:1px solid #e0e0e0}.nums .row:last-child{border-bottom:0}.nums .n{font-size:26px;font-weight:900;color:#1a1a2e;margin-right:10px}.nums .l{font-size:14px;color:#777}.editable:hover{outline:1px dashed rgba(26,26,46,.28);outline-offset:2px;cursor:text}.editable[contenteditable="true"]:focus{outline:2px solid rgba(26,26,46,.35);outline-offset:3px;border-radius:8px;background:rgba(238,242,255,.72)}
+.wImg{position:relative;display:inline-block;max-width:100%;vertical-align:top;transition:transform .12s ease,outline-color .12s ease;touch-action:none;cursor:grab}.wImg img{display:block;height:auto;border:0;border-radius:5px;background:#f3f4f6;user-select:none;-webkit-user-drag:none}.wImg.sel{outline:2px solid rgba(200,150,12,.65);outline-offset:4px}.wImg.dragging{cursor:grabbing;z-index:3}.resizeHandle{position:absolute;right:-8px;bottom:-8px;width:18px;height:18px;border-radius:50%;background:#1a1a2e;border:2px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,.2);cursor:nwse-resize}.imgBadge{position:absolute;left:8px;top:8px;background:rgba(17,24,39,.82);color:#fff;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:700}.dragGuide{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);display:flex;gap:6px;background:rgba(255,255,255,.94);border:1px solid #d1d5db;border-radius:999px;padding:4px 6px;box-shadow:0 6px 18px rgba(15,23,42,.08)}.dragGuide span{font-size:11px;font-weight:700;color:#6b7280;padding:3px 8px;border-radius:999px}.dragGuide span.active{background:#1a1a2e;color:#fff}
+.flowWrap:after{content:'';display:block;clear:both}.flowWrap .img-left{float:left;margin:0 18px 18px 0}.flowWrap .img-right{float:right;margin:0 0 18px 18px}.flowWrap .img-center{display:block;float:none;margin:0 auto 22px auto}.tip{position:sticky;bottom:10px;left:0;margin:10px auto 0 auto;max-width:600px;background:rgba(17,24,39,.88);color:#fff;padding:8px 10px;border-radius:10px;font:12px/1.35 system-ui}.tip b{color:#fff}
+.pairRow{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}.pairRow.split .pairCol{display:flex;align-items:flex-start}.pairRow.split .pairCol.main{flex:1 1 58%;min-width:260px}.pairRow.split .pairCol.side{flex:0 1 38%;min-width:220px}.pairRow.split .pairCol.main>*,.pairRow.split .pairCol.side>*{width:100%}.pairRow.stack{display:block}.pairRow.stack .pairCol+.pairCol{margin-top:14px}.flowText{position:relative;padding-top:28px}.flowText.align-left{margin-left:0;margin-right:auto}.flowText.align-center{margin-left:auto;margin-right:auto}.flowText.align-right{margin-left:auto;margin-right:0}.flowTextTools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.flowTextLabel{display:inline-block;font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:grab;user-select:none}.flowText.dragging .flowTextLabel{cursor:grabbing}.smartWidget{position:relative;display:block;overflow:visible;box-sizing:border-box;--widget-scale:1;width:100%;max-width:100%;min-width:140px;padding-top:30px;padding-bottom:18px;margin-bottom:18px;transition:transform .12s ease}.smartWidget+.smartWidget{margin-top:12px}.smartWidget.align-left{margin-left:0;margin-right:auto}.smartWidget.align-center{margin-left:auto;margin-right:auto}.smartWidget.align-right{margin-left:auto;margin-right:0}.smartWidgetInner{display:block;transform:scale(var(--widget-scale));transform-origin:top left;width:calc(100% / var(--widget-scale))}.widgetTools{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;z-index:4}.widgetLabel{display:inline-block;font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:grab;user-select:none}.smartWidget.dragging .widgetLabel{cursor:grabbing}.widgetDragGuide{display:flex;gap:6px;align-items:center}.widgetDragGuide span{font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:pointer;user-select:none}.widgetDragGuide span.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}.widgetBtns{display:flex;align-items:center;gap:6px}.widgetBtns button{padding:4px 7px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#111827;font-size:11px;font-weight:900;cursor:pointer}.widgetBtns button.del{background:#fee2e2;color:#7f1d1d;border-color:#fecaca}.widgetScale{font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px}.widgetHandle{position:absolute;right:-9px;bottom:-9px;width:18px;height:18px;border-radius:50%;background:#1a1a2e;border:2px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,.2);cursor:nwse-resize;z-index:4}.smartGhost{margin-top:10px;border:1px dashed #cbd5e1;border-radius:12px;background:#f8fafc;padding:12px;text-align:center}.smartGhost button{padding:7px 10px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#111827;font-size:12px;font-weight:800;cursor:pointer}.articlePanel{background:#ffffff;border:1px solid #ebe7da;border-radius:14px;padding:18px 20px}.articlePanel .p:last-child{margin-bottom:0}.smartStatic{display:block}.smartStatic .box,.smartStatic .quote,.smartStatic .nums{width:auto;max-width:100%}@media (max-width:1200px){.grid{grid-template-columns:1fr}.previewStage{height:760px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <h1>Newsletter Builder</h1>
+      <div class="sub">Upravuj newsletter pohodlně: sekce zůstávají stabilní a obrázky můžeš stále přesouvat a zmenšovat.</div>
+    </div>
+    <div class="toolbar">
+      <button class="primary" id="copyHtml">Kopírovat čisté HTML pro Outlook</button>
+      <button class="ghost" id="downloadHtml" onclick="downloadHtmlNow(); return false;">Stáhnout HTML</button>
+      <button class="ghost" id="copySubject" onclick="copySubjectNow(); return false;">Kopírovat předmět</button>
+      <button class="ghost mini" id="save" onclick="saveNow(); return false;">Uložit</button>
+      <button class="ghost mini" id="load" onclick="loadNow(); return false;">Načíst</button>
+      <button class="danger" id="reset" onclick="resetNow(); return false;">Reset</button>
+      <span class="status" id="status">Připraveno</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <details open>
+        <summary><div><div class="sum-title">Globální nastavení</div><div class="sum-meta">Předmět, logo, odkazy, patička</div></div><div class="sum-meta">(klikni)</div></summary>
+        <div class="pad">
+          <div class="row2">
+            <div><label>Vydání</label><input id="issue" type="text"></div>
+            <div><label>Předmět e-mailu</label><input id="subject" type="text"></div>
+          </div>
+          <div class="row2">
+            <div><label>Horní proužek – název</label><input id="org_name" type="text"></div>
+            <div><label>Kontaktní e-mail</label><input id="contact_email" type="email"></div>
+          </div>
+          <label>Adresa v patičce</label><input id="org_addr" type="text">
+          <div class="row2">
+            <div><label>URL odběru</label><input id="url_signup" type="url"></div>
+            <div><label>URL odhlášení</label><input id="url_unsub" type="url"></div>
+          </div>
+          <div class="row2">
+            <div><label>Facebook URL</label><input id="url_fb" type="url"></div>
+            <div><label>Instagram URL</label><input id="url_ig" type="url"></div>
+          </div>
+          <div class="row2">
+            <div><label>YouTube URL</label><input id="url_yt" type="url"></div>
+            <div><label>URL hlavičkového obrázku</label><input id="img_logo" type="url"></div>
+          </div>
+          <div class="row3">
+            <div><label>Ikona Facebook</label><input id="ic_fb" type="url"></div>
+            <div><label>Ikona Instagram</label><input id="ic_ig" type="url"></div>
+            <div><label>Ikona YouTube</label><input id="ic_yt" type="url"></div>
+          </div>
+        </div>
+      </details>
+
+      <details open>
+        <summary><div><div class="sum-title">Pevný úvod</div><div class="sum-meta">Pozdrav a panel „V tomto vydání“</div></div><div class="sum-meta">(klikni)</div></summary>
+        <div class="pad">
+          <label>Nadpis</label><input data-path="intro.title" type="text">
+          <label>Úvodní text</label><textarea data-path="intro.text"></textarea>
+          <label>Panel – titulek</label><input data-path="intro.issue_label" type="text">
+          <label>Panel – obsah</label><input data-path="intro.issue_items" type="text">
+        </div>
+      </details>
+
+      <details open>
+        <summary><div><div class="sum-title">Obsah newsletteru</div><div class="sum-meta">Přidávej, maž, duplikuj, přesouvej</div></div><div class="sum-meta">(klikni)</div></summary>
+        <div class="pad">
+          <div class="addRow">
+            <button class="ghost" data-add="feature">+ Článek s obrázkem</button>
+            <button class="ghost" data-add="plain">+ Článek bez obrázku</button>
+            <button class="ghost" data-add="aside">+ Text + box</button>
+            <button class="ghost" data-add="stats">+ Článek + čísla</button>
+          </div>
+          <div class="hint">Styl se drží automaticky a pozadí se střídá podle pořadí sekcí.</div>
+          <div class="sectionList" id="sectionList"></div>
+        </div>
+      </details>
+
+      <details open>
+        <summary><div><div class="sum-title">Pevný závěr</div><div class="sum-meta">CTA, outro a footer</div></div><div class="sum-meta">(klikni)</div></summary>
+        <div class="pad">
+          <label>CTA odstavec 1</label><textarea data-path="cta.text1"></textarea>
+          <label>CTA odstavec 2</label><textarea data-path="cta.text2"></textarea>
+          <label>CTA tlačítko</label><input data-path="cta.button_label" type="text">
+          <label>Outro text</label><textarea data-path="outro.text"></textarea>
+          <label>Podpis – řádek 1</label><input data-path="outro.signoff" type="text">
+          <label>Podpis – řádek 2</label><input data-path="outro.team" type="text">
+          <label>Copyright text</label><input data-path="footer.copyright" type="text">
+          <label>Text o odhlášení</label><textarea data-path="footer.unsubscribe_text"></textarea>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <button class="tab active" data-tab="preview">Náhled</button>
+        <button class="tab" data-tab="html">HTML</button>
+      </div>
+      <div class="pane active" id="pane-preview">
+        <div class="previewWrap">
+          <div class="previewTop">
+            <div class="scale"><span>Měřítko</span><input id="zoom" type="range" min="50" max="120" value="90"><span id="zoomVal">90 %</span></div>
+            <div class="toolbar"><button class="ghost mini" id="refresh">Obnovit náhled</button><button class="ghost mini" id="openNew">Otevřít export HTML</button></div>
+          </div>
+          <div class="previewStage" id="previewStage"><div id="previewHost"></div><div class="tip"><b>Tip:</b> obrázek můžeš přetáhnout nebo rovnou kliknout na pilulky Vlevo / Střed / Vpravo; rohovým kolečkem měníš šířku a vlevo pak upravíš obsah vybrané sekce.</div></div>
+        </div>
+      </div>
+      <div class="pane" id="pane-html">
+        <label>Čisté HTML pro Outlook</label>
+        <textarea id="out" class="out" spellcheck="false"></textarea>
+        <div class="hint">Workflow: Outlook web → doplněk Insert HTML → vložit zdroj z tohoto pole → Insert. Export používá čisté tabulky, MSO podmínky a VML tlačítka.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const STORAGE_KEY = 'newsletter_v17';
+  let state = null;
+  let selectedId = null;
+  let lastHtml = '';
+  let selectedImagePath = '';
+  let resizeState = null;
+  let dragState = null;
+
+  function uid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+  function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;'); }
+  function lines(s){ return String(s||'').split(/\n/).filter(Boolean); }
+  function paras(s){ return String(s||'').split(/\n\s*\n/).filter(Boolean); }
+  function px(val, d=250){ const n = parseInt(val,10); if (Number.isNaN(n)) return d; return Math.max(120, Math.min(536, n)); }
+  function editable(path, value, tag='span', cls=''){ return `<${tag} class="${cls ? cls + ' ' : ''}editable" contenteditable="true" spellcheck="false" data-edit="${esc(path)}" data-edit-mode="single">${esc(value ?? '').replace(/\n/g,'<br>')}</${tag}>`; }
+  function editableParas(path, text, cls='p'){ return paras(text).map(p => editable(path, p, 'p', cls)).join(''); }
+  function editableLines(path, text, tag='p', cls='p'){ return lines(text).map(line => editable(path, line, tag, cls)).join(''); }
+  function getByPath(path){ return path.split('.').reduce((a,k)=> a ? a[k] : undefined, state); }
+  function setByPath(path, value){ const parts = path.split('.'); let ref = state; for (let i=0;i<parts.length-1;i++) ref = ref[parts[i]]; ref[parts[parts.length-1]] = value; }
+  function setStatus(msg, cls=''){ const el = $('status'); el.textContent = msg; el.className = 'status ' + cls; setTimeout(()=> el.className='status', 1800); }
+  function persist(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+  function loadState(){ try{ const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : null; }catch(e){ return null; } }
+
+  function newFeature(){
+    return {id:uid(), type:'feature', title:'Nový článek', image:{url:'', alt:'Obrázek', width:250, align:'left'}, text:'Sem napiš obsah článku.\n\nDruhý odstavec může pokračovat tady.', quote:'Krátký citát nebo verš.', quote_ref:'Odkaz / zdroj', side_title:'Pro zamyšlení', side_items:'Bod 1\nBod 2\nBod 3'};
+  }
+  function newAside(){
+    return {id:uid(), type:'aside', title:'Nová textová sekce', text:'Sem napiš hlavní text sekce.\n\nMůže mít více odstavců.', side_mode:'plain', side_title:'Doplňující box', side_text:'Krátký doprovodný text nebo několik vět.', button_label:'Více', button_url:'', plain_items:'Položka 1\nPoložka 2'};
+  }
+  function newPlain(){
+    return {id:uid(), type:'plain', title:'Nový článek bez obrázku', text:'Sem napiš obsah článku.\n\nDruhý odstavec může pokračovat tady.'};
+  }
+  function newStats(){
+    return {id:uid(), type:'stats', title:'Nová sekce s čísly', image:{url:'', alt:'Obrázek', width:250, align:'right'}, text:'Hlavní text sekce se statistikami.\n\nPopiš kontext a význam čísel.', numbers_title:'V číslech', n1:'1', l1:'První údaj', n2:'2', l2:'Druhý údaj', n3:'3', l3:'Třetí údaj'};
+  }
+
+  function defaultState(){
+    return {
+      settings:{
+        issue:'Jaro 2026',
+        subject:'Nové nebe nové země – Newsletter (Jaro 2026)',
+        org_name:'Nové nebe nové země',
+        contact_email:'media@novenebenovazeme.cz',
+        org_addr:'Shincheonji ČR Praha, z.s., Osadní 869/32, Holešovice, 170 00 Praha 7, Česká republika',
+        url_signup:'https://forms.office.com/e/dBPYGPT6gf',
+        url_unsub:'https://forms.office.com/e/fL9mUJdB4R',
+        url_fb:'https://www.facebook.com/shincheonjicz/',
+        url_ig:'https://www.instagram.com/scj.cz/',
+        url_yt:'https://www.youtube.com/c/shincheonjicz',
+        img_logo:'https://i.gyazo.com/bbca7b93cbdf6c46880680acb68c9128.png',
+        ic_fb:'https://i.gyazo.com/539bfc064ddb7fdb39042b335b4ff68f.png',
+        ic_ig:'https://i.gyazo.com/004add669a0f98f646ad3a3c49a27576.png',
+        ic_yt:'https://i.gyazo.com/76982008778b28fd0304e12000313d58.png'
+      },
+      intro:{
+        title:'Drazí přátelé Nového nebe nové země,',
+        text:'dny se prodlužují, slunce se čím dál častěji usmívá zpoza mraků a ve vzduchu je cítit probouzející se jaro.\n\nStejně jako příroda kolem nás, i my přicházíme s čerstvou dávkou inspirace. Přinášíme vám povzbuzující novinky i podněty k zamyšlení, které mohou rozsvítit váš den. Přejeme příjemné čtení – ať vás naplní chutí vykročit vstříc tomu, co je před vámi.',
+        issue_label:'V tomto vydání',
+        issue_items:'víra • dialog k míru • závody • zamyšlení'
+      },
+      sections:[
+        {id:uid(), type:'feature', title:'Ježíš klepe na dveře našeho srdce', image:{url:'https://i.gyazo.com/a018db72ca894301c880d2e5df8a9db4.png', alt:'Komiks', width:250, align:'left'}, text:'Zažíváte situaci, kdy se cítíte těžce, kdy se zdá být Bůh daleko a ztrácíte naději v budoucnost? Ve Zj 3:20 Ježíš klepe na dveře s nabídkou, že kdo uslyší jeho hlas a otevře mu, k tomu vejde.\n\nMožná je teď ten pravý čas všechno v modlitbě a rozhovoru svěřit Bohu.', quote:'„Pokládejte za velikou radost, moji bratři, když upadnete do rozličných pokušení.“', quote_ref:'Jakub 1:2–6', side_title:'Pro osobní zamyšlení', side_items:'1 věc Bohu svěřit\n1 věc, za kterou poděkovat\n1 malý krok na zítřek'},
+        {id:uid(), type:'aside', title:'Víra ze srdce nebo ze zvyku?', text:'Zveme vás k důležitému zamyšlení, které můžete rozvést s blízkými nebo jen pro sebe.\n\nKdyž se modlíme, vzdáváme bohoslužbu, chodíme k Božímu slovu – přemýšlíme nad upřímností toho všeho před Bohem a sebou?', side_mode:'socials', side_title:'Sledujte nás', side_text:'', button_label:'Odběr newsletteru', button_url:'https://forms.office.com/e/dBPYGPT6gf', plain_items:''},
+        {id:uid(), type:'aside', title:'Skrze mezináboženský dialog k míru', text:'V současné době probíhají pravidelná setkávání v rámci Mírového centra, které spadá pod církev Shincheonji.\n\nV rámci toho se potkávají lídři ve společnosti a představitelé různých náboženství, kdy hledají cestu k porozumění a harmonii.\n\nJedná se o upřímnou snahu lidí různých vyznání, kteří se učí navzájem porozumět a prostřednictvím dialogu prolomit bariéry.', side_mode:'contact', side_title:'Kontakt', side_text:'Chcete se dozvědět více? Napište nám.', button_label:'Napište nám ▶', button_url:'', plain_items:''},
+        {id:uid(), type:'stats', title:'Úspěchy v závodech', image:{url:'https://i.gyazo.com/08c3c7d20ce7a7bc4f198367e42c693e.jpg', alt:'Lyžařský závod', width:250, align:'right'}, text:'V únoru se šest našich závodníků zapojilo do lyžařského závodu. Celkem soutěžili s 29 závodníky a někteří se umístili na osmém a devátém místě.\n\nNáš tým dobrovolníků pomáhal na trati s povzbuzováním, navigací závodníků a vytyčováním bezpečnostních zábran.', numbers_title:'Závod v číslech', n1:'6', l1:'našich závodníků', n2:'29', l2:'závodníků celkem', n3:'8.–9.', l3:'místo'}
+      ],
+      cta:{
+        text1:'Nezapomeňte sledovat naše sociální sítě (Instagram, Facebook, YouTube), kde naleznete další novinky a duchovní povzbuzení.',
+        text2:'Chtěli byste být mezi prvními, kdo se dozví o nadcházejících událostech? Přihlaste se k odběru newsletteru. Pouze odběratelům poskytneme exkluzivní komiks, který nikde jinde nenajdete.',
+        button_label:'▶ Přihlásit se k odběru'
+      },
+      outro:{
+        text:'Věříme, že vám novinky přinesou mnoho povzbuzení.\nPřejeme vám krásné nadcházející jarní dny.',
+        signoff:'S pozdravem,',
+        team:'Tým Shincheonji'
+      },
+      footer:{
+        copyright:'Copyright © Shincheonji ČR Praha, z.s., All rights reserved.',
+        unsubscribe_text:'Tento e-mail dostáváte na základě Vašeho přihlášení k odběru newsletteru. Pokud chcete odběr zrušit, můžete tak učinit'
+      }
+    };
+  }
+
+  function getWidgetConfig(path){
+    const raw = getByPath(path);
+    if (!raw || typeof raw !== 'object') return { scale:100, hidden:false, copies:1, align:'center' };
+    const align = raw.align === 'left' || raw.align === 'right' ? raw.align : 'center';
+    return {
+      scale: Math.max(70, Math.min(110, parseInt(raw.scale,10) || 100)),
+      hidden: !!raw.hidden,
+      copies: Math.max(1, Math.min(2, parseInt(raw.copies,10) || 1)),
+      align
+    };
+  }
+  function setWidgetConfig(path, patch){
+    const next = Object.assign({}, getWidgetConfig(path), patch || {});
+    next.scale = Math.max(70, Math.min(110, parseInt(next.scale,10) || 100));
+    next.hidden = !!next.hidden;
+    next.copies = Math.max(1, Math.min(2, parseInt(next.copies,10) || 1));
+    next.align = next.align === 'left' || next.align === 'right' ? next.align : 'center';
+    setByPath(path, next);
+  }
+  function renderSmartWidget(path, innerHtml, label='Blok'){
+    return `<div class="smartStatic" data-widget-path="${esc(path)}">${innerHtml}</div>`;
+  }
+  function syncSmartWidgetBoxes(){}
+  function widgetAlignFromDx(dx){
+    if (dx <= -38) return 'left';
+    if (dx >= 38) return 'right';
+    return 'center';
+  }
+  function updateWidgetGuide(box, align){}
+  function wireSmartWidgets(){}
+
+  function syncInputsFromState(){
+    const keys = ['issue','subject','org_name','contact_email','org_addr','url_signup','url_unsub','url_fb','url_ig','url_yt','img_logo','ic_fb','ic_ig','ic_yt'];
+    keys.forEach(k => { const el = $(k); if (el) el.value = state.settings[k] || ''; });
+    document.querySelectorAll('[data-path]').forEach(el => {
+      if (el.closest('#sectionList')) return;
+      const v = getByPath(el.dataset.path);
+      el.value = v == null ? '' : v;
+    });
+  }
+  function syncStateFromSettings(){
+    const keys = ['issue','subject','org_name','contact_email','org_addr','url_signup','url_unsub','url_fb','url_ig','url_yt','img_logo','ic_fb','ic_ig','ic_yt'];
+    keys.forEach(k => { const el = $(k); if (el) state.settings[k] = el.value; });
+  }
+
+  function sectionLabel(s){
+    if (s.type === 'feature') return 'Článek s obrázkem';
+    if (s.type === 'plain') return 'Článek bez obrázku';
+    if (s.type === 'aside') return 'Text + box';
+    if (s.type === 'stats') return 'Článek + čísla';
+    return s.type;
+  }
+  function sectionSummary(s){
+    if (s.type === 'feature') return (s.title || 'Sekce') + ' • obrázek + citát + box';
+    if (s.type === 'plain') return (s.title || 'Sekce') + ' • pouze text';
+    if (s.type === 'aside') return (s.title || 'Sekce') + ' • text + ' + (s.side_mode || 'box');
+    if (s.type === 'stats') return (s.title || 'Sekce') + ' • obrázek + čísla';
+    return s.title || 'Sekce';
+  }
+
+  function renderSectionEditor(s, idx){
+    const base = `sections.${idx}`;
+    const commonImg = `
+      <label>URL obrázku</label><input data-path="${base}.image.url" type="url" value="${esc(s.image?.url||'')}">
+      <div class="row3">
+        <div><label>Alt obrázku</label><input data-path="${base}.image.alt" type="text" value="${esc(s.image?.alt||'')}"></div>
+        <div><label>Šířka</label><input data-path="${base}.image.width" type="text" value="${esc(s.image?.width||'')}"></div>
+        <div><label>Umístění</label><select data-path="${base}.image.align"><option value="left" ${s.image?.align==='left'?'selected':''}>Vlevo</option><option value="center" ${s.image?.align==='center'?'selected':''}>Na střed</option><option value="right" ${s.image?.align==='right'?'selected':''}>Vpravo</option></select></div>
+      </div>
+      <div class="note">Obrázek můžeš v náhledu jemně přetáhnout a snapne se do Vlevo / Střed / Vpravo; rohovým kolečkem změníš šířku.</div>`;
+    if (s.type === 'feature') return `
+      <label>Nadpis</label><input data-path="${base}.title" type="text" value="${esc(s.title||'')}">
+      ${commonImg}
+      <label>Hlavní text</label><textarea data-path="${base}.text">${esc(s.text||'')}</textarea>
+      <label>Citát</label><textarea data-path="${base}.quote">${esc(s.quote||'')}</textarea>
+      <label>Odkaz citátu</label><input data-path="${base}.quote_ref" type="text" value="${esc(s.quote_ref||'')}">
+      <label>Nadpis boxu</label><input data-path="${base}.side_title" type="text" value="${esc(s.side_title||'')}">
+      <label>Položky boxu, každý řádek zvlášť</label><textarea data-path="${base}.side_items">${esc(s.side_items||'')}</textarea>`;
+    if (s.type === 'plain') return `
+      <label>Nadpis</label><input data-path="${base}.title" type="text" value="${esc(s.title||'')}">
+      <label>Hlavní text</label><textarea data-path="${base}.text">${esc(s.text||'')}</textarea>`;
+    if (s.type === 'aside') return `
+      <label>Nadpis</label><input data-path="${base}.title" type="text" value="${esc(s.title||'')}">
+      <label>Hlavní text</label><textarea data-path="${base}.text">${esc(s.text||'')}</textarea>
+      <label>Typ boxu</label><select data-path="${base}.side_mode"><option value="plain" ${s.side_mode==='plain'?'selected':''}>Obyčejný box</option><option value="socials" ${s.side_mode==='socials'?'selected':''}>Sociální sítě</option><option value="contact" ${s.side_mode==='contact'?'selected':''}>Kontakt</option></select>
+      <label>Nadpis boxu</label><input data-path="${base}.side_title" type="text" value="${esc(s.side_title||'')}">
+      <label>Text boxu</label><textarea data-path="${base}.side_text">${esc(s.side_text||'')}</textarea>
+      <label>Položky obyčejného boxu, každý řádek zvlášť</label><textarea data-path="${base}.plain_items">${esc(s.plain_items||'')}</textarea>
+      <div class="row2"><div><label>Text tlačítka</label><input data-path="${base}.button_label" type="text" value="${esc(s.button_label||'')}"></div><div><label>URL tlačítka</label><input data-path="${base}.button_url" type="url" value="${esc(s.button_url||'')}"></div></div>`;
+    if (s.type === 'stats') return `
+      <label>Nadpis</label><input data-path="${base}.title" type="text" value="${esc(s.title||'')}">
+      ${commonImg}
+      <label>Hlavní text</label><textarea data-path="${base}.text">${esc(s.text||'')}</textarea>
+      <label>Nadpis číselného boxu</label><input data-path="${base}.numbers_title" type="text" value="${esc(s.numbers_title||'')}">
+      <div class="row2"><div><label>Číslo 1</label><input data-path="${base}.n1" type="text" value="${esc(s.n1||'')}"></div><div><label>Popis 1</label><input data-path="${base}.l1" type="text" value="${esc(s.l1||'')}"></div></div>
+      <div class="row2"><div><label>Číslo 2</label><input data-path="${base}.n2" type="text" value="${esc(s.n2||'')}"></div><div><label>Popis 2</label><input data-path="${base}.l2" type="text" value="${esc(s.l2||'')}"></div></div>
+      <div class="row2"><div><label>Číslo 3</label><input data-path="${base}.n3" type="text" value="${esc(s.n3||'')}"></div><div><label>Popis 3</label><input data-path="${base}.l3" type="text" value="${esc(s.l3||'')}"></div></div>`;
+    return '';
+  }
+
+  function renderSectionList(){
+    const host = $('sectionList');
+    host.innerHTML = '';
+    state.sections.forEach((s, idx) => {
+      const item = document.createElement('div');
+      item.className = 'sectionItem' + (selectedId===s.id ? ' active' : '');
+      item.innerHTML = `
+        <div class="sectionBar">
+          <div style="min-width:0"><div class="sectionTitle">${esc(sectionLabel(s))} <span class="sum-meta">#${idx+1}</span></div><div class="sum-meta" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px">${esc(sectionSummary(s))}</div></div>
+          <div class="sectionBtns">
+            <button class="bbtn s" data-act="sel">Edit</button>
+            <button class="bbtn" data-act="up">↑</button>
+            <button class="bbtn" data-act="down">↓</button>
+            <button class="bbtn" data-act="dup">⎘</button>
+            <button class="bbtn d" data-act="del">✕</button>
+          </div>
+        </div>
+        <div class="sectionBody" ${selectedId===s.id ? '' : 'style="display:none"'}>${renderSectionEditor(s, idx)}</div>`;
+      item.addEventListener('mousedown', e => {
+        const act = e.target?.dataset?.act;
+        if (act==='sel'){ e.preventDefault(); selectedId = s.id; renderSectionList(); return; }
+        if (act==='up'){ e.preventDefault(); moveSection(s.id,-1); return; }
+        if (act==='down'){ e.preventDefault(); moveSection(s.id,1); return; }
+        if (act==='dup'){ e.preventDefault(); dupSection(s.id); return; }
+        if (act==='del'){ e.preventDefault(); delSection(s.id); return; }
+        if (e.target.closest('.sectionBar')){ selectedId = s.id; renderSectionList(); }
+      });
+      item.querySelectorAll('[data-path]').forEach(el => {
+        el.addEventListener('input', ()=>{
+          const path = el.dataset.path;
+          setByPath(path, /\.width$/.test(path) ? px(el.value) : el.value);
+          renderOutputs();
+        });
+        el.addEventListener('change', ()=>{
+          const path = el.dataset.path;
+          setByPath(path, /\.width$/.test(path) ? px(el.value) : el.value);
+          renderOutputs();
+        });
+        el.addEventListener('blur', ()=> setTimeout(renderSectionList, 0));
+      });
+      host.appendChild(item);
+    });
+  }
+
+  function moveSection(id, dir){
+    const i = state.sections.findIndex(x=>x.id===id); if (i<0) return;
+    const j = i + dir; if (j<0 || j>=state.sections.length) return;
+    [state.sections[i], state.sections[j]] = [state.sections[j], state.sections[i]];
+    renderAll(); setStatus('Přesunuto', 'ok');
+  }
+  function dupSection(id){
+    const i = state.sections.findIndex(x=>x.id===id); if (i<0) return;
+    const copy = JSON.parse(JSON.stringify(state.sections[i])); copy.id = uid();
+    state.sections.splice(i+1, 0, copy); selectedId = copy.id; renderAll(); setStatus('Duplikováno', 'ok');
+  }
+  function delSection(id){
+    const i = state.sections.findIndex(x=>x.id===id); if (i<0) return;
+    if (!confirm('Smazat tuto sekci?')) return;
+    state.sections.splice(i,1); if (selectedId===id) selectedId = state.sections[0]?.id || null; renderAll(); setStatus('Smazáno', 'ok');
+  }
+  function addSection(type){
+    const s = type==='feature' ? newFeature() : type==='plain' ? newPlain() : type==='stats' ? newStats() : newAside();
+    const idx = selectedId ? state.sections.findIndex(x=>x.id===selectedId) : state.sections.length-1;
+    state.sections.splice(idx>=0 ? idx+1 : state.sections.length, 0, s);
+    selectedId = s.id; renderAll(); setStatus('Přidáno', 'ok');
+  }
+
+  function renderWrappedPreview(imagePath, text){
+    const img = getByPath(imagePath);
+    const width = px(img.width);
+    const cls = img.align==='right' ? 'img-right' : img.align==='center' ? 'img-center' : 'img-left';
+    const textPath = imagePath.replace(/\.image$/, '.text');
+    const textHtml = editableParas(textPath, text, 'p');
+    return `<div class="flowWrap">
+      <div class="wImg ${selectedImagePath===imagePath ? 'sel' : ''} ${cls}" data-img-path="${esc(imagePath)}" style="width:${width}px">
+        <div class="imgBadge">${img.align==='left'?'Vlevo':img.align==='center'?'Střed':'Vpravo'} · ${width}px</div>
+        <img src="${esc(img.url||'')}" alt="${esc(img.alt||'')}" style="width:100%" draggable="false">
+        <div class="resizeHandle" data-resize-path="${esc(imagePath)}"></div>
+        <div class="dragGuide"><span data-align="left" class="${img.align==='left'?'active':''}">Vlevo</span><span data-align="center" class="${img.align==='center'?'active':''}">Střed</span><span data-align="right" class="${img.align==='right'?'active':''}">Vpravo</span></div>
+      </div>
+      ${textHtml}
+    </div>`;
+  }
+
+  function renderAsideBoxPreview(s, idx){
+    const st = state.settings;
+    const base = `sections.${idx}`;
+    if (s.side_mode === 'socials') return `<div class="box"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p><p class="p" style="font-size:14px;line-height:1.68;margin:0 0 14px 0;color:#374151">Sleduj novinky, krátká povzbuzení i nové pozvánky na našich sociálních sítích.</p><div class="icons"><a href="${esc(st.url_fb)}" target="_blank"><img src="${esc(st.ic_fb)}" alt="Facebook"></a><a href="${esc(st.url_ig)}" target="_blank"><img src="${esc(st.ic_ig)}" alt="Instagram"></a><a href="${esc(st.url_yt)}" target="_blank"><img src="${esc(st.ic_yt)}" alt="YouTube"></a></div><a class="smallBtn" href="${esc(s.button_url || st.url_signup)}" target="_blank">${esc(s.button_label||'Více')}</a></div>`;
+    if (s.side_mode === 'contact') return `<div class="box"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p><div style="font-size:14px;line-height:1.72;color:#374151;margin-bottom:14px">${editableParas(base + '.side_text', s.side_text, 'p')}</div><div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start"><a class="smallBtn" href="mailto:${esc(st.contact_email)}">${esc(s.button_label||'Napište nám')}</a><div style="font-size:13px;color:#6b7280;font-weight:700">${esc(st.contact_email)}</div></div></div>`;
+    return `<div class="box"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p>${editableParas(base + '.side_text', s.side_text, 'p')}${lines(s.plain_items).map(line=>`<div class="p editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.plain_items')}" data-edit-mode="lines" style="font-size:14px;line-height:1.85;margin-bottom:0">&#9679;&nbsp; ${esc(line)}</div>`).join('')}${s.button_label ? `<div style="margin-top:10px"><a class="smallBtn" href="${esc(s.button_url||'#')}" target="_blank">${esc(s.button_label)}</a></div>` : ''}</div>`;
+  }
+
+  function pairMode(pathA, pathB){
+    return 'normal';
+  }
+  function renderFlowText(path, label, innerHtml){
+    return `<div class="flowText align-left" data-flow-path="${esc(path)}">${innerHtml}</div>`;
+  }
+  function updateFlowGuide(box, align){}
+  function wireFlowTexts(){}
+  function renderPreviewWidgetPair(pathA, labelA, htmlA, pathB, labelB, htmlB){
+    const a = renderSmartWidget(pathA, htmlA, labelA);
+    const b = renderSmartWidget(pathB, htmlB, labelB);
+    return `<div class="pairRow split"><div class="pairCol main">${a}</div><div class="pairCol side">${b}</div></div>`;
+  }
+  function renderPreviewTextWidgetPair(textPath, textLabel, textHtml, sidePath, sideLabel, sideHtml){
+    const t = renderFlowText(textPath, textLabel, textHtml);
+    const s = renderSmartWidget(sidePath, sideHtml, sideLabel);
+    return `<div class="pairRow split"><div class="pairCol main">${t}</div><div class="pairCol side" style="padding-top:2px">${s}</div></div>`;
+  }
+  function renderEmailWidgetPair(pathA, htmlA, pathB, htmlB){
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td valign="top" width="55%" style="padding-right:16px;">${htmlA}</td><td valign="top" width="45%" style="padding-left:16px;">${htmlB}</td></tr></table>`;
+  }
+  function renderEmailTextWidgetPair(textPath, textHtml, sidePath, sideHtml){
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td valign="top" width="55%" style="padding-right:16px;">${textHtml}</td><td valign="top" width="45%" style="padding-left:16px;">${sideHtml}</td></tr></table>`;
+  }
+
+  function renderSectionPreview(s, idx){
+    const alt = idx % 2 === 1 ? ' alt' : '';
+    const base = `sections.${idx}`;
+    if (s.type === 'feature') {
+      const quoteCard = `<div class="quote"><div class="q">${editable(base + '.quote', s.quote)}</div><div class="r">${editable(base + '.quote_ref', s.quote_ref, 'span')}</div></div>`;
+      const sideCard = `<div class="box"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p>${lines(s.side_items).map(line=>`<div class="p editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.side_items')}" data-edit-mode="lines" style="font-size:14px;line-height:1.9;margin-bottom:0">&#9679;&nbsp; ${esc(line)}</div>`).join('')}</div>`;
+      return `<div class="previewSection${alt}"><div class="titleBar"><div class="bar"></div><h2 class="h2">${editable(base + '.title', s.title)}</h2></div>${renderWrappedPreview(`sections.${idx}.image`, s.text)}${renderPreviewWidgetPair(base + '.quote_widget', 'Citát', quoteCard, base + '.side_widget', s.side_title || 'Box', sideCard)}</div>`;
+    }
+    if (s.type === 'plain') return `<div class="previewSection${alt}"><div class="titleBar"><div class="bar"></div><h2 class="h2">${editable(base + '.title', s.title)}</h2></div>${editableParas(base + '.text', s.text, 'p')}</div>`;
+    if (s.type === 'aside') {
+      const textCard = `<div class="articlePanel">${editableParas(base + '.text', s.text, 'p')}</div>`;
+      return `<div class="previewSection${alt}"><div class="titleBar"><div class="bar"></div><h2 class="h2">${editable(base + '.title', s.title)}</h2></div>${renderPreviewTextWidgetPair(base + '.text_widget', 'Text', textCard, base + '.side_widget', s.side_title || 'Box', renderAsideBoxPreview(s, idx))}</div>`;
+    }
+    if (s.type === 'stats') {
+      const statsCard = `<div class="box nums" style="max-width:240px"><p class="t">${editable(base + '.numbers_title', s.numbers_title, 'span')}</p><div class="row"><span class="n editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.n1')}" data-edit-mode="single">${esc(s.n1)}</span><span class="l editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.l1')}" data-edit-mode="single">${esc(s.l1)}</span></div><div class="row"><span class="n editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.n2')}" data-edit-mode="single">${esc(s.n2)}</span><span class="l editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.l2')}" data-edit-mode="single">${esc(s.l2)}</span></div><div class="row"><span class="n editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.n3')}" data-edit-mode="single">${esc(s.n3)}</span><span class="l editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.l3')}" data-edit-mode="single">${esc(s.l3)}</span></div></div>`;
+      return `<div class="previewSection${alt}"><div class="titleBar"><div class="bar"></div><h2 class="h2">${editable(base + '.title', s.title)}</h2></div>${renderWrappedPreview(`sections.${idx}.image`, s.text)}${renderSmartWidget(base + '.stats_widget', statsCard, s.numbers_title || 'V číslech')}</div>`;
+    }
+    return '';
+  }
+
+  function renderPreview(){
+    const s = state.settings, intro = state.intro, cta = state.cta, outro = state.outro, footer = state.footer;
+    const sectionsHtml = state.sections.map((sec, idx)=> `<div class="previewDivider"></div>${renderSectionPreview(sec, idx)}`).join('');
+    $('previewHost').innerHTML = `
+      <div class="previewEmail">
+        <div class="previewHero"><img src="${esc(s.img_logo)}" alt="Logo"></div>
+        <div class="previewTopbar"><div>${esc(s.org_name)} &bull; Newsletter</div><div style="color:#c8960c;font-weight:900;letter-spacing:0">${esc(s.issue)}</div></div>
+        <div class="goldLine"></div>
+        <div class="previewBody">
+          <div class="previewSection">
+            <h1 class="h1">${editable('intro.title', intro.title)}</h1>
+            ${editableParas('intro.text', intro.text, 'p')}
+            <div class="issuePanel"><p class="k">${editable('intro.issue_label', intro.issue_label, 'span')}</p><p class="v">${editable('intro.issue_items', intro.issue_items, 'span')}</p></div>
+          </div>
+          ${sectionsHtml}
+          <div class="previewDivider"></div>
+          <div class="previewSection">
+            ${editableParas('cta.text1', cta.text1, 'p')}
+            ${editableParas('cta.text2', cta.text2, 'p')}
+            <div><a class="btn" href="${esc(s.url_signup)}" target="_blank">${esc(cta.button_label)}</a></div>
+          </div>
+          <div class="previewSection alt" style="text-align:center;padding-top:22px">
+            ${editableLines('outro.text', outro.text, 'p', 'p')}
+            <p class="p" style="margin:4px 0 2px 0">${editable('outro.signoff', outro.signoff)}</p>
+            <p class="p" style="font-size:17px;font-weight:700;color:#1a1a2e;margin-top:6px">${editable('outro.team', outro.team)}</p>
+          </div>
+        </div>
+        <div class="previewFooter"><div style="background:#c8960c;height:4px;font-size:4px;line-height:4px"></div><div class="previewFooterInner"><p style="margin:0 0 7px 0;font-size:12px;line-height:1.7">${editable('footer.copyright', footer.copyright)}</p><p style="margin:0 0 7px 0;font-size:12px;line-height:1.7">${editable('footer.unsubscribe_text', footer.unsubscribe_text)} <a href="${esc(s.url_unsub)}" style="color:#c8960c;text-decoration:underline">prostřednictvím formuláře</a>.</p><p style="margin:0;font-size:12px;line-height:1.7">${esc(s.org_addr)}</p></div></div>
+      </div>`;
+    wirePreviewEditable();
+    wirePreviewImages();
+    wireSmartWidgets();
+    wireFlowTexts();
+  }
+
+  function applyPreviewEdit(path, mode){
+    const host = $('previewHost');
+    const nodes = [...host.querySelectorAll(`[data-edit="${CSS.escape(path)}"]`)];
+    if (!nodes.length) return;
+    const clean = node => (node.innerText || '').replace(/\u00A0/g,' ').replace(/^•\s*/, '').trim();
+    let value = '';
+    if (mode === 'lines') value = nodes.map(clean).filter(Boolean).join('\n');
+    else if (nodes.length > 1) value = nodes.map(clean).filter(Boolean).join('\n\n');
+    else value = clean(nodes[0]);
+    setByPath(path, value);
+    syncInputsFromState();
+    renderSectionList();
+    const html = renderEmailHTML();
+    lastHtml = html; $('out').value = html; persist();
+  }
+  function wirePreviewEditable(){
+    $('previewHost').querySelectorAll('[data-edit]').forEach(el => {
+      el.addEventListener('focusout', () => applyPreviewEdit(el.dataset.edit, el.dataset.editMode || 'single'));
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { e.preventDefault(); renderPreview(); }
+      });
+    });
+  }
+
+  function alignLabel(align){ return align==='left' ? 'Vlevo' : align==='right' ? 'Vpravo' : 'Střed'; }
+  function suggestAlign(dx, current){
+    const zone = 38;
+    if (dx <= -zone) return 'left';
+    if (dx >= zone) return 'right';
+    return 'center';
+  }
+  function updateGuide(box, align){ if (!box) return; box.querySelectorAll('.dragGuide span').forEach(span => span.classList.toggle('active', span.dataset.align===align)); }
+  function commitImageAlign(path, align){
+    setByPath(path + '.align', align);
+    selectedImagePath = path;
+    renderOutputs();
+    renderSectionList();
+    persist();
+  }
+
+  function wirePreviewImages(){
+    $('previewHost').querySelectorAll('[data-img-path]').forEach(box => {
+      box.style.cursor = 'grab';
+      box.addEventListener('click', e => {
+        if (box.dataset.suppressClick === '1') {
+          box.dataset.suppressClick = '0';
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        selectedImagePath = box.dataset.imgPath;
+        renderPreview();
+      });
+      box.querySelectorAll('.dragGuide span').forEach(span => {
+        span.addEventListener('click', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          commitImageAlign(box.dataset.imgPath, span.dataset.align);
+        });
+      });
+      const img = box.querySelector('img');
+      if (img) {
+        img.setAttribute('draggable', 'false');
+        img.addEventListener('dragstart', e => e.preventDefault());
+      }
+      box.addEventListener('pointerdown', e => {
+        const handle = e.target.closest('[data-resize-path]');
+        if (handle){
+          e.preventDefault();
+          e.stopPropagation();
+          selectedImagePath = handle.dataset.resizePath;
+          resizeState = { path:selectedImagePath, box, startX:e.clientX, startW:px(getByPath(selectedImagePath + '.width')), pointerId:e.pointerId };
+          box.classList.add('dragging');
+          if (box.setPointerCapture) box.setPointerCapture(e.pointerId);
+          window.addEventListener('pointermove', onResizeMove);
+          window.addEventListener('pointerup', onPointerEnd, {once:true});
+          return;
+        }
+        e.preventDefault();
+        selectedImagePath = box.dataset.imgPath;
+        dragState = { path:box.dataset.imgPath, box, startX:e.clientX, current:getByPath(box.dataset.imgPath + '.align'), moved:false, lastDx:0, pointerId:e.pointerId };
+        box.classList.add('dragging');
+        if (box.setPointerCapture) box.setPointerCapture(e.pointerId);
+        updateGuide(box, dragState.current);
+        window.addEventListener('pointermove', onDragMove);
+        window.addEventListener('pointerup', onPointerEnd, {once:true});
+      });
+    });
+  }
+  function onResizeMove(e){
+    if (!resizeState || (resizeState.pointerId != null && e.pointerId !== resizeState.pointerId)) return;
+    const w = px(resizeState.startW + (e.clientX - resizeState.startX));
+    resizeState.box.style.width = w + 'px';
+    resizeState.box.querySelector('.imgBadge').textContent = alignLabel(getByPath(resizeState.path + '.align')) + ' · ' + w + 'px';
+    setByPath(resizeState.path + '.width', w);
+  }
+  function onDragMove(e){
+    if (!dragState || (dragState.pointerId != null && e.pointerId !== dragState.pointerId)) return;
+    const dx = e.clientX - dragState.startX;
+    dragState.lastDx = dx;
+    if (Math.abs(dx) > 4) dragState.moved = true;
+    dragState.box.style.transform = `translateX(${Math.max(-120, Math.min(120, dx))}px)`;
+    const nextAlign = suggestAlign(dx, dragState.current);
+    updateGuide(dragState.box, nextAlign);
+    const badge = dragState.box.querySelector('.imgBadge');
+    if (badge) badge.textContent = alignLabel(nextAlign) + ' · ' + px(getByPath(dragState.path + '.width')) + 'px';
+  }
+  function onPointerEnd(e){
+    window.removeEventListener('pointermove', onResizeMove);
+    window.removeEventListener('pointermove', onDragMove);
+    if (resizeState){
+      if (resizeState.box && resizeState.box.releasePointerCapture && resizeState.pointerId != null) {
+        try { resizeState.box.releasePointerCapture(resizeState.pointerId); } catch(err) {}
+      }
+      resizeState.box.classList.remove('dragging');
+      resizeState = null;
+      renderOutputs();
+      renderSectionList();
+      persist();
+      return;
+    }
+    if (dragState){
+      const next = dragState.moved ? suggestAlign(dragState.lastDx, dragState.current) : dragState.current;
+      setByPath(dragState.path + '.align', next);
+      selectedImagePath = dragState.path;
+      dragState.box.style.transform = '';
+      dragState.box.classList.remove('dragging');
+      if (dragState.box.releasePointerCapture && dragState.pointerId != null) {
+        try { dragState.box.releasePointerCapture(dragState.pointerId); } catch(err) {}
+      }
+      if (dragState.moved) dragState.box.dataset.suppressClick = '1';
+      dragState = null;
+      renderOutputs();
+      renderSectionList();
+      persist();
+    }
+  }
+
+  function bulletproofButton(href, label, pad, size, width=0){
+    const padParts = String(pad).split(' ');
+    const vPad = parseInt(padParts[0], 10) || 13;
+    const hPad = parseInt(padParts[1] || padParts[0], 10) || 24;
+    const fontPx = parseInt(size, 10) || 15;
+    const plain = String(label || '').replace(/\s+/g,' ').trim();
+    const btnWidth = width || Math.max(156, Math.round((plain.length * fontPx * 0.62) + hPad * 2));
+    const btnHeight = Math.max(34, Math.round(vPad * 2 + fontPx));
+    return `<!--[if mso]>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="${esc(href)}" style="height:${btnHeight}px;v-text-anchor:middle;width:${btnWidth}px;" arcsize="10%" stroke="f" fillcolor="#1a1a2e">
+  <w:anchorlock/>
+  <center style="color:#ffffff;font-family:Calibri,Arial,sans-serif;font-size:${fontPx}px;font-weight:600;">${esc(plain)}</center>
+</v:roundrect>
+<![endif]--><!--[if !mso]><!-- -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;">
+  <tr>
+    <td width="1" nowrap bgcolor="#1a1a2e" style="background-color:#1a1a2e;border-radius:5px;">
+      <a href="${esc(href)}" target="_blank" style="display:block;padding:${pad};color:#ffffff;font-weight:600;text-decoration:none;font-size:${size};line-height:1;white-space:nowrap;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;">
+        <font face="'Open Sans',Calibri,Arial,sans-serif" color="#ffffff">${esc(label)}</font>
+      </a>
+    </td>
+    <td width="99%" style="font-size:0;line-height:0;">&nbsp;</td>
+  </tr>
+</table>
+<!--<![endif]-->`;
+  }
+  function textParsEmail(text){ return paras(text).map(p=>`<p style="margin:0 0 12px 0;font-size:15px;line-height:1.7;color:#2c2c2c;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c">${esc(p).replace(/\n/g,'<br>')}</font></p>`).join(''); }
+  function wrapTitleEmail(title){ return `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:14px;"><tr><td bgcolor="#c8960c" style="background-color:#c8960c;width:4px;padding:0;">&nbsp;</td><td style="padding:4px 0 4px 12px;"><h2 style="margin:0;font-size:21px;line-height:1.2;color:#1a1a2e;font-weight:700;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#1a1a2e">${esc(title)}</font></h2></td></tr></table>`; }
+  function wrappedEmail(image, text){
+    const width = px(image.width);
+    const textHtml = textParsEmail(text);
+    if (image.align === 'center') return `<img src="${esc(image.url)}" width="${width}" alt="${esc(image.alt||'')}" style="display:block;width:100%;max-width:${width}px;height:auto;border:0;border-radius:5px;margin:0 auto 18px auto;" />${textHtml}`;
+    const imgCell = `<td valign="top" width="${width}" style="padding-${image.align==='left' ? 'right':'left'}:18px;"><img src="${esc(image.url)}" width="${width}" alt="${esc(image.alt||'')}" style="display:block;width:${width}px;max-width:${width}px;height:auto;border:0;border-radius:5px;" /></td>`;
+    const txtCell = `<td valign="top">${textHtml}</td>`;
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:6px;"><tr>${image.align==='left' ? imgCell + txtCell : txtCell + imgCell}</tr></table>`;
+  }
+  function renderAsideBoxEmail(s, settings){
+    if (s.side_mode === 'socials') return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td bgcolor="#f3f3f3" style="background-color:#f3f3f3;border-left:4px solid #c8960c;padding:15px;"><p style="margin:0 0 10px 0;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#777777;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(s.side_title)}</font></p><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:13px;"><tr><td style="padding-right:10px;"><a href="${esc(settings.url_fb)}" target="_blank"><img src="${esc(settings.ic_fb)}" width="32" height="32" alt="Facebook" style="display:block;width:32px;height:32px;border:0;border-radius:6px;" /></a></td><td style="padding-right:10px;"><a href="${esc(settings.url_ig)}" target="_blank"><img src="${esc(settings.ic_ig)}" width="32" height="32" alt="Instagram" style="display:block;width:32px;height:32px;border:0;border-radius:6px;" /></a></td><td><a href="${esc(settings.url_yt)}" target="_blank"><img src="${esc(settings.ic_yt)}" width="32" height="32" alt="YouTube" style="display:block;width:32px;height:32px;border:0;border-radius:6px;" /></a></td></tr></table>${bulletproofButton(s.button_url || settings.url_signup, s.button_label || 'Více', '9px 14px', '13px')}</td></tr></table>`;
+    if (s.side_mode === 'contact') return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td bgcolor="#f3f3f3" style="background-color:#f3f3f3;border-left:4px solid #c8960c;padding:15px;"><p style="margin:0 0 10px 0;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#777777;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(s.side_title)}</font></p>${textParsEmail(s.side_text)}${bulletproofButton('mailto:' + settings.contact_email, s.button_label || 'Napište nám', '9px 14px', '13px')}<div style="height:10px;font-size:10px;line-height:10px;">&nbsp;</div><div style="font-size:12px;line-height:1.4;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;color:#777777;"><a href="mailto:${esc(settings.contact_email)}" style="color:#777777;text-decoration:none;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(settings.contact_email)}</font></a></div></td></tr></table>`;
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td bgcolor="#f3f3f3" style="background-color:#f3f3f3;border-left:4px solid #c8960c;padding:15px;"><p style="margin:0 0 10px 0;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#777777;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(s.side_title)}</font></p>${textParsEmail(s.side_text)}${lines(s.plain_items).map(line=>`<div style="margin:0 0 6px 0;font-size:14px;line-height:1.5;color:#2c2c2c;font-family:'Open Sans',Calibri,Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c">• ${esc(line)}</font></div>`).join('')}${s.button_label ? `<div style="margin-top:10px;">${bulletproofButton(s.button_url || '#', s.button_label, '9px 14px', '13px')}</div>` : ''}</td></tr></table>`;
+  }
+  function emailWidgetCopies(path, html){
+    const cfg = getWidgetConfig(path);
+    if (cfg.hidden) return '';
+    return Array.from({length:cfg.copies}, (_, i) => `${i ? '<div style="height:12px;font-size:12px;line-height:12px;">&nbsp;</div>' : ''}${html}`).join('');
+  }
+  function sectionEmail(s, idx, settings){
+    const bg = idx % 2 === 1 ? '#f8f8f8' : '#ffffff';
+    const base = `sections.${idx}`;
+    if (s.type === 'feature') {
+      const quoteHtml = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr><td bgcolor="#fdf8e8" style="background-color:#fdf8e8;border-left:4px solid #c8960c;padding:14px 15px;"><p style="margin:0 0 9px 0;font-size:14px;line-height:1.65;color:#4a3f1a;font-family:Georgia,'Times New Roman',serif;font-style:italic;"><font face="Georgia,serif" color="#4a3f1a">${esc(s.quote)}</font></p><p style="margin:0;font-size:12px;font-weight:700;color:#777777;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(s.quote_ref)}</font></p></td></tr></table>`;
+      const sideHtml = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td bgcolor="#f3f3f3" style="background-color:#f3f3f3;border-left:4px solid #c8960c;padding:15px;"><p style="margin:0 0 10px 0;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#777777;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(s.side_title)}</font></p><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr><td bgcolor="#ffffff" style="background-color:#ffffff;padding:10px 12px;"><p style="margin:0;font-size:14px;line-height:1.9;color:#2c2c2c;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c">${lines(s.side_items).map(line=>'&#9679;&nbsp; ' + esc(line)).join('<br>')}</font></p></td></tr></table></td></tr></table>`;
+      return `<tr><td bgcolor="${bg}" style="background-color:${bg};padding:28px 32px 26px 32px;">${wrapTitleEmail(s.title)}${wrappedEmail(s.image, s.text)}${renderEmailWidgetPair(base + '.quote_widget', quoteHtml, base + '.side_widget', sideHtml)}</td></tr>`;
+    }
+    if (s.type === 'plain') return `<tr><td bgcolor="${bg}" style="background-color:${bg};padding:28px 32px 26px 32px;">${wrapTitleEmail(s.title)}${textParsEmail(s.text)}</td></tr>`;
+    if (s.type === 'aside') {
+      const textHtml = `${wrapTitleEmail(s.title)}${textParsEmail(s.text)}`;
+      return `<tr><td bgcolor="${bg}" style="background-color:${bg};padding:28px 32px 26px 32px;">${renderEmailTextWidgetPair(base + '.text_widget', textHtml, base + '.side_widget', renderAsideBoxEmail(s, settings))}</td></tr>`;
+    }
+    if (s.type === 'stats') {
+      const statsHtml = `<table role="presentation" width="45%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;min-width:220px;"><tr><td bgcolor="#f3f3f3" style="background-color:#f3f3f3;border-left:4px solid #c8960c;padding:15px;"><p style="margin:0 0 10px 0;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:#777777;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(s.numbers_title)}</font></p><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr><td style="padding:6px 0;border-bottom:1px solid #e0e0e0;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c"><strong style="font-size:26px;"><font color="#1a1a2e">${esc(s.n1)}</font></strong>&nbsp;&nbsp;<font color="#777777" style="font-size:14px;">${esc(s.l1)}</font></font></td></tr><tr><td style="padding:6px 0;border-bottom:1px solid #e0e0e0;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c"><strong style="font-size:26px;"><font color="#1a1a2e">${esc(s.n2)}</font></strong>&nbsp;&nbsp;<font color="#777777" style="font-size:14px;">${esc(s.l2)}</font></font></td></tr><tr><td style="padding:6px 0;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c"><strong style="font-size:26px;"><font color="#1a1a2e">${esc(s.n3)}</font></strong>&nbsp;&nbsp;<font color="#777777" style="font-size:14px;">${esc(s.l3)}</font></font></td></tr></table></td></tr></table>`;
+      return `<tr><td bgcolor="${bg}" style="background-color:${bg};padding:28px 32px 26px 32px;">${wrapTitleEmail(s.title)}${wrappedEmail(s.image, s.text)}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td align="right">${emailWidgetCopies(base + '.stats_widget', statsHtml)}</td></tr></table></td></tr>`;
+    }
+    return '';
+  }
+  function cleanHtml(html){ return html.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim(); }
+  function renderEmailHTML(){
+    syncStateFromSettings();
+    const s = state.settings, intro = state.intro, cta = state.cta, outro = state.outro, footer = state.footer;
+    const sectionsHtml = state.sections.map((sec, idx)=> `<tr><td bgcolor="#e4e4e4" style="height:1px;background-color:#e4e4e4;font-size:1px;line-height:1px;padding:0;">&nbsp;</td></tr>\n${sectionEmail(sec, idx, s)}`).join('\n');
+    return cleanHtml(`<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>${esc(s.subject)}</title>
+<!--[if mso]>
+<xml>
+  <o:OfficeDocumentSettings>
+    <o:AllowPNG/>
+    <o:PixelsPerInch>96</o:PixelsPerInch>
+  </o:OfficeDocumentSettings>
+</xml>
+<![endif]-->
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;font-family:'Open Sans',Calibri,sans-serif;}
+table,td{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;}
+img{border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;}
+a{text-decoration:none;}
+</style>
+</head>
+<body style="margin:0;padding:0;background-color:#e0e0e0;">
+<div style="display:none;font-size:1px;color:#e0e0e0;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">${esc(intro.issue_label)}: ${esc(intro.issue_items)}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#e0e0e0" style="background-color:#e0e0e0;border-collapse:collapse;">
+<tr><td align="center" style="padding:28px 10px;">
+<!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+<table role="presentation" align="center" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:600px;max-width:600px;background-color:#ffffff;border-collapse:collapse;border:1px solid #cccccc;border-radius:10px;overflow:hidden;">
+<tr><td align="center" bgcolor="#c8960c" style="background-color:#c8960c;padding:0;line-height:0;font-size:0;border-radius:10px 10px 0 0;overflow:hidden;"><img src="${esc(s.img_logo)}" width="600" alt="Logo" style="display:block;width:100%;max-width:600px;height:auto;border:0;border-radius:10px 10px 0 0;" /></td></tr>
+<tr><td bgcolor="#1a1a2e" style="background-color:#1a1a2e;padding:11px 32px;"><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td style="font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;font-size:12px;letter-spacing:0.13em;text-transform:uppercase;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#ffffff">${esc(s.org_name)} &bull; Newsletter</font></td><td align="right" style="font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;font-size:12px;font-weight:700;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#c8960c">${esc(s.issue)}</font></td></tr></table></td></tr>
+<tr><td bgcolor="#c8960c" style="background-color:#c8960c;height:3px;font-size:3px;line-height:3px;padding:0;">&nbsp;</td></tr>
+<tr><td bgcolor="#ffffff" style="background-color:#ffffff;padding:16px 32px 14px 32px;">
+<h1 style="margin:0 0 16px 0;font-size:26px;line-height:1.25;color:#1a1a2e;font-weight:700;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#1a1a2e">${esc(intro.title)}</font></h1>
+${textParsEmail(intro.text)}
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:30px;"><tr><td bgcolor="#f6f1df" style="background-color:#f6f1df;border:1px solid #e7d8a3;border-left:4px solid #c8960c;border-radius:8px;padding:12px 16px 12px 14px;"><p style="margin:0 0 4px 0;font-size:12px;line-height:1.4;letter-spacing:0.08em;text-transform:uppercase;color:#7a6740;font-weight:700;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#7a6740">${esc(intro.issue_label)}</font></p><p style="margin:0;font-size:14px;line-height:1.6;color:#2c2c2c;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c">${esc(intro.issue_items)}</font></p></td></tr></table>
+</td></tr>
+${sectionsHtml}
+<tr><td bgcolor="#e4e4e4" style="height:1px;background-color:#e4e4e4;font-size:1px;line-height:1px;padding:0;">&nbsp;</td></tr>
+<tr><td bgcolor="#ffffff" style="background-color:#ffffff;padding:28px 32px 28px 32px;">${textParsEmail(cta.text1)}${textParsEmail(cta.text2)}${bulletproofButton(s.url_signup, cta.button_label, '13px 24px', '15px')}</td></tr>
+<tr><td align="center" bgcolor="#f8f8f8" style="background-color:#f8f8f8;padding:22px 32px 26px 32px;">${lines(outro.text).map(line=>`<p style="margin:0 0 2px 0;font-size:15px;line-height:1.9;color:#2c2c2c;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c">${esc(line)}</font></p>`).join('')}<p style="margin:0 0 2px 0;font-size:15px;color:#2c2c2c;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#2c2c2c">${esc(outro.signoff)}</font></p><p style="margin:6px 0 0 0;font-size:17px;font-weight:700;color:#1a1a2e;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#1a1a2e">${esc(outro.team)}</font></p></td></tr>
+<tr><td bgcolor="#1a1a2e" style="background-color:#1a1a2e;padding:0;"><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td bgcolor="#c8960c" style="background-color:#c8960c;height:4px;font-size:4px;line-height:4px;padding:0;">&nbsp;</td></tr><tr><td bgcolor="#1a1a2e" style="background-color:#1a1a2e;padding:20px 32px 26px 32px;border-radius:0 0 10px 10px;"><p style="margin:0 0 7px 0;font-size:12px;line-height:1.7;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#9099bb">${esc(footer.copyright)}</font></p><p style="margin:0 0 7px 0;font-size:12px;line-height:1.7;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#9099bb">${esc(footer.unsubscribe_text)} <a href="${esc(s.url_unsub)}" style="color:#c8960c;text-decoration:underline;"><font color="#c8960c">prostřednictvím formuláře</font></a>.</font></p><p style="margin:0;font-size:12px;line-height:1.7;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#9099bb">${esc(s.org_addr)}</font></p></td></tr></table></td></tr>
+</table>
+<!--[if mso]></td></tr></table><![endif]-->
+</td></tr></table>
+</body>
+</html>`);
+  }
+
+  function renderOutputs(){
+    renderPreview();
+    const html = renderEmailHTML();
+    lastHtml = html; $('out').value = html; persist();
+  }
+  function renderAll(){ renderSectionList(); renderOutputs(); }
+
+  async function copyToClipboard(text){
+    if (navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); return true; }
+    const ta = $('out'); ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length); return document.execCommand('copy');
+  }
+  async function copyHtml(){
+    try{ const ok = await copyToClipboard($('out').value || lastHtml || renderEmailHTML()); if (ok) setStatus('HTML zkopírováno', 'ok'); else { $('out').focus(); $('out').select(); setStatus('HTML označeno pro Ctrl+C'); } }catch(e){ $('out').focus(); $('out').select(); setStatus('HTML označeno pro Ctrl+C'); }
+  }
+  async function copySubject(){
+    try{ const ok = await copyToClipboard($('subject').value || state.settings.subject || ''); if (ok) setStatus('Předmět zkopírován', 'ok'); else setStatus('Předmět označen'); }catch(e){ setStatus('Předmět označen'); }
+  }
+  function downloadHtml(){ const blob = new Blob([$('out').value || lastHtml || renderEmailHTML()], {type:'text/html;charset=utf-8'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'newsletter_builder_v17.html'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 1800); setStatus('Staženo', 'ok'); }
+  function openNew(){ const w = window.open('', '_blank'); if (!w){ setStatus('Popup blokován'); return; } const html = $('out').value || lastHtml || renderEmailHTML(); w.document.open(); w.document.write(html); w.document.close(); }
+  function switchTab(name){ document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name)); $('pane-preview').classList.toggle('active', name==='preview'); $('pane-html').classList.toggle('active', name==='html'); }
+  function setZoom(v){ $('zoomVal').textContent = v + ' %'; $('previewHost').style.transform = `scale(${v/100})`; }
+  function reset(){ if (!confirm('Opravdu resetovat na výchozí hodnoty?')) return; state = defaultState(); selectedId = state.sections[0]?.id || null; selectedImagePath=''; syncInputsFromState(); renderAll(); persist(); setStatus('Reset', 'ok'); }
+
+  function wireFixedInputs(){
+    ['issue','subject','org_name','contact_email','org_addr','url_signup','url_unsub','url_fb','url_ig','url_yt','img_logo','ic_fb','ic_ig','ic_yt'].forEach(id => {
+      const el = $(id); el.addEventListener('input', renderOutputs); el.addEventListener('change', renderOutputs);
+    });
+    document.querySelectorAll('[data-path]').forEach(el => {
+      if (el.closest('#sectionList')) return;
+      el.addEventListener('input', ()=> { setByPath(el.dataset.path, el.value); renderOutputs(); });
+      el.addEventListener('change', ()=> { setByPath(el.dataset.path, el.value); renderOutputs(); });
+    });
+    document.querySelectorAll('[data-add]').forEach(btn => btn.addEventListener('click', ()=> addSection(btn.dataset.add)));
+  }
+
+  function init(){
+    state = loadState() || defaultState();
+    selectedId = state.sections[0]?.id || null;
+    syncInputsFromState();
+    wireFixedInputs();
+    document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', ()=> switchTab(t.dataset.tab)));
+    $('copyHtml').addEventListener('click', copyHtml);
+    $('copySubject').addEventListener('click', copySubject);
+    $('downloadHtml').addEventListener('click', downloadHtml);
+    $('openNew').addEventListener('click', openNew);
+    $('refresh').addEventListener('click', ()=> { renderOutputs(); setStatus('Obnoveno', 'ok'); });
+    $('save').addEventListener('click', ()=> { persist(); setStatus('Uloženo', 'ok'); });
+    $('load').addEventListener('click', ()=> { const loaded = loadState(); if (!loaded){ setStatus('Nic k načtení'); return; } state = loaded; selectedId = state.sections[0]?.id || null; syncInputsFromState(); renderAll(); setStatus('Načteno', 'ok'); });
+    $('reset').addEventListener('click', reset);
+    $('zoom').addEventListener('input', e => setZoom(e.target.value));
+    setZoom($('zoom').value);
+    renderAll();
+  }
+  init();
+})();
+
+
+  function setTopStatus(msg){ const el = $('status'); if (el) el.textContent = msg; }
+  async function copyTextSafe(txt){
+    let ok = false;
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(txt); ok = true; } } catch(e) {}
+    if (!ok) {
+      try {
+        const ta = $('out') || document.createElement('textarea');
+        if (!ta.parentNode) { ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); }
+        ta.value = txt;
+        ta.focus();
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+        ok = document.execCommand('copy');
+      } catch(e) {}
+    }
+    return !!ok;
+  }
+  async function copyOutlookHtmlNow(){
+    const html = renderEmailHTML();
+    lastHtml = html;
+    const out = $('out');
+    if (out) {
+      out.value = html;
+      out.focus();
+      out.select();
+      try { out.setSelectionRange(0, out.value.length); } catch(e) {}
+      out.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    const ok = await copyTextSafe(html);
+    setTopStatus(ok ? 'HTML zkopírováno' : 'HTML je dole označené v poli – stiskni Ctrl+C');
+    return false;
+  }
+  function downloadHtmlNow(){
+    const html = renderEmailHTML();
+    lastHtml = html;
+    if ($('out')) $('out').value = html;
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'newsletter_v16.html';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 150);
+    setTopStatus('HTML staženo');
+    return false;
+  }
+  async function copySubjectNow(){
+    syncStateFromSettings();
+    const ok = await copyTextSafe(state.settings.subject || '');
+    setTopStatus(ok ? 'Předmět zkopírován' : 'Kopírování selhalo');
+    return false;
+  }
+  function saveNow(){ syncStateFromSettings(); persist(); setTopStatus('Uloženo'); return false; }
+  function loadNow(){ const loaded = loadState(); if (!loaded) { setTopStatus('Nic k načtení'); return false; } state = loaded; syncInputsFromState(); renderSectionList(); renderOutputs(); setTopStatus('Načteno'); return false; }
+  function resetNow(){ if (!window.confirm('Opravdu resetovat celý newsletter?')) return false; state = defaultState(); persist(); syncInputsFromState(); renderSectionList(); renderOutputs(); setTopStatus('Resetováno'); return false; }
+  window.copyOutlookHtmlNow = copyOutlookHtmlNow;
+  window.downloadHtmlNow = downloadHtmlNow;
+  window.copySubjectNow = copySubjectNow;
+  window.saveNow = saveNow;
+  window.loadNow = loadNow;
+  window.resetNow = resetNow;
+  function bindTopBarActions(){
+    const map = { copyOut: copyOutlookHtmlNow, downloadHtml: downloadHtmlNow, copySubject: copySubjectNow, save: saveNow, load: loadNow, reset: resetNow };
+    Object.entries(map).forEach(([id, fn]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.onclick = ev => { ev.preventDefault(); fn(); return false; };
+      el.addEventListener('click', ev => { ev.preventDefault(); fn(); return false; });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindTopBarActions); else bindTopBarActions();
+
+</script>
+</body>
+</html>
