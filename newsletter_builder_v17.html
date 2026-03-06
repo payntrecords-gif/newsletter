@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Newsletter Builder – v17</title>
+<title>Newsletter Builder – v27</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -44,14 +44,14 @@ textarea{min-height:88px;resize:vertical}
 .addRow{display:flex;gap:8px;flex-wrap:wrap}.addRow button{font-size:12px;padding:8px 10px}
 .sectionList{display:flex;flex-direction:column;gap:8px;margin-top:10px}.sectionItem{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}.sectionItem.active{border-color:var(--brand);box-shadow:0 0 0 2px rgba(26,26,46,.06)}
 .sectionBar{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;background:#fafafa;border-bottom:1px solid var(--line);cursor:pointer}.sectionTitle{font-size:13px;font-weight:950}.sectionBtns{display:flex;gap:6px;flex-wrap:wrap}.bbtn{padding:7px 9px;border-radius:10px;font-size:12px;font-weight:900;background:var(--soft);color:var(--brand);cursor:pointer}.bbtn.d{background:var(--danger);color:#7f1d1d}.bbtn.s{background:#ecfeff;color:#155e75}.sectionBody{padding:10px}
-.previewEmail{background:#fff;border:1px solid #d9d9d9;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.05)}.previewHero img{display:block;width:100%;height:auto}.previewTopbar{background:#1a1a2e;color:#fff;padding:11px 32px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}.goldLine{height:3px;background:#c8960c}.previewBody{padding:14px 32px 0 32px}.previewDivider{height:1px;background:#e4e4e4;margin:0 -32px 0 -32px}.previewSection{padding:28px 0 26px 0}.previewSection.alt{background:#f8f8f8;margin:0 -32px;padding:28px 32px 26px 32px}.previewFooter{background:#1a1a2e;color:#9099bb;padding:0}.previewFooterInner{padding:20px 32px 26px 32px}
-.h1{margin:0 0 16px 0;font-size:26px;line-height:1.25;color:#1a1a2e;font-weight:700}.h2{margin:0;font-size:21px;line-height:1.2;color:#1a1a2e;font-weight:700}.p{margin:0 0 12px 0;font-size:15px;line-height:1.7;color:#2c2c2c}.titleBar{display:flex;align-items:center;gap:12px;margin-bottom:14px}.titleBar .bar{width:4px;align-self:stretch;background:#c8960c;border-radius:2px}
-.issuePanel{display:inline-block;background:#f6f1df;border:1px solid #e7d8a3;border-left:4px solid #c8960c;border-radius:8px;padding:12px 16px 12px 14px;margin-bottom:30px;box-shadow:0 1px 0 rgba(200,150,12,.08)}.issuePanel .k{margin:0 0 4px 0;font-size:12px;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:#7a6740;font-weight:700}.issuePanel .v{margin:0;font-size:14px;line-height:1.6;color:#2c2c2c}
-.box{background:#fcfcfb;border:1px solid #e7e2d2;border-left:4px solid #c8960c;border-radius:14px;padding:18px 18px 16px 18px;box-shadow:none}.box .t{margin:0 0 10px 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#777}.quote{background:#fdf8e8;border:1px solid #f0dfad;border-left:4px solid #c8960c;border-radius:14px;padding:15px 15px;box-shadow:none}.quote .q{margin:0 0 9px 0;font:italic 14px/1.65 Georgia,'Times New Roman',serif;color:#4a3f1a}.quote .r{font-size:12px;font-weight:700;color:#777}.icons{display:flex;gap:10px;margin:0 0 14px 0}.icons img{width:32px;height:32px;border-radius:6px;background:#fff;padding:2px;box-shadow:none}.btn{display:inline-block;background:#1a1a2e;color:#fff;padding:13px 24px;border-radius:5px;text-decoration:none;font-weight:600;font-size:15px}.smallBtn{display:inline-block;background:#1a1a2e;color:#fff;padding:9px 14px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:none}
+.previewEmail{background:#fff;border:1px solid #d9d9d9;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.05)}.previewHero img{display:block;width:100%;height:auto}.previewTopbar{background:#1a1a2e;color:#fff;padding:11px 32px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}.goldLine{height:3px;background:#c8960c}.previewBody{padding:18px 34px 4px 34px}.previewDivider{height:1px;background:#e7e1d2;margin:0 -34px 0 -34px}.previewSection{padding:30px 0 30px 0}.previewSection.alt{background:#f5f3ed;margin:0 -34px;padding:30px 34px 32px 34px}.previewFooter{background:#1a1a2e;color:#9099bb;padding:0}.previewFooterInner{padding:22px 32px 28px 32px}
+.h1{margin:0 0 18px 0;font-size:27px;line-height:1.22;color:#1a1a2e;font-weight:700}.h2{margin:0;font-size:22px;line-height:1.22;color:#1a1a2e;font-weight:700}.p{margin:0 0 14px 0;font-size:15px;line-height:1.76;color:#2c2c2c}.titleBar{display:flex;align-items:center;gap:12px;margin-bottom:18px}.titleBar .bar{width:4px;align-self:stretch;background:#c8960c;border-radius:2px}
+.issuePanel{display:inline-block;background:#f6f1df;border:1px solid #e7d8a3;border-left:4px solid #c8960c;border-radius:10px;padding:13px 16px 13px 14px;margin:8px 0 8px 0;box-shadow:0 1px 0 rgba(200,150,12,.08)}.issuePanel .k{margin:0 0 4px 0;font-size:12px;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:#7a6740;font-weight:700}.issuePanel .v{margin:0;font-size:14px;line-height:1.6;color:#2c2c2c}
+.box{background:#fcfcfb;border:1px solid #e7e2d2;border-left:4px solid #c8960c;border-radius:14px;padding:18px 18px 16px 18px;box-shadow:none;min-height:100%}.box .t{margin:0 0 12px 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#777}.quote{background:#fdf8e8;border:1px solid #f0dfad;border-left:4px solid #c8960c;border-radius:14px;padding:15px 15px;box-shadow:none}.quote .q{margin:0 0 9px 0;font:italic 14px/1.65 Georgia,'Times New Roman',serif;color:#4a3f1a}.quote .r{font-size:12px;font-weight:700;color:#777}.icons{display:flex;gap:10px;margin:2px 0 14px 0;align-items:center}.icons img{width:32px;height:32px;border-radius:6px;background:#fff;padding:2px;box-shadow:none;border:1px solid #ece7d8}.btn{display:inline-block;background:#1a1a2e;color:#fff;padding:13px 24px;border-radius:5px;text-decoration:none;font-weight:600;font-size:15px}.smallBtn{display:inline-block;background:#1a1a2e;color:#fff;padding:9px 14px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:none}
 .nums .row{padding:6px 0;border-bottom:1px solid #e0e0e0}.nums .row:last-child{border-bottom:0}.nums .n{font-size:26px;font-weight:900;color:#1a1a2e;margin-right:10px}.nums .l{font-size:14px;color:#777}.editable:hover{outline:1px dashed rgba(26,26,46,.28);outline-offset:2px;cursor:text}.editable[contenteditable="true"]:focus{outline:2px solid rgba(26,26,46,.35);outline-offset:3px;border-radius:8px;background:rgba(238,242,255,.72)}
 .wImg{position:relative;display:inline-block;max-width:100%;vertical-align:top;transition:transform .12s ease,outline-color .12s ease;touch-action:none;cursor:grab}.wImg img{display:block;height:auto;border:0;border-radius:5px;background:#f3f4f6;user-select:none;-webkit-user-drag:none}.wImg.sel{outline:2px solid rgba(200,150,12,.65);outline-offset:4px}.wImg.dragging{cursor:grabbing;z-index:3}.resizeHandle{position:absolute;right:-8px;bottom:-8px;width:18px;height:18px;border-radius:50%;background:#1a1a2e;border:2px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,.2);cursor:nwse-resize}.imgBadge{position:absolute;left:8px;top:8px;background:rgba(17,24,39,.82);color:#fff;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:700}.dragGuide{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);display:flex;gap:6px;background:rgba(255,255,255,.94);border:1px solid #d1d5db;border-radius:999px;padding:4px 6px;box-shadow:0 6px 18px rgba(15,23,42,.08)}.dragGuide span{font-size:11px;font-weight:700;color:#6b7280;padding:3px 8px;border-radius:999px}.dragGuide span.active{background:#1a1a2e;color:#fff}
 .flowWrap:after{content:'';display:block;clear:both}.flowWrap .img-left{float:left;margin:0 18px 18px 0}.flowWrap .img-right{float:right;margin:0 0 18px 18px}.flowWrap .img-center{display:block;float:none;margin:0 auto 22px auto}.tip{position:sticky;bottom:10px;left:0;margin:10px auto 0 auto;max-width:600px;background:rgba(17,24,39,.88);color:#fff;padding:8px 10px;border-radius:10px;font:12px/1.35 system-ui}.tip b{color:#fff}
-.pairRow{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}.pairRow.split .pairCol{display:flex;align-items:flex-start}.pairRow.split .pairCol.main{flex:1 1 58%;min-width:260px}.pairRow.split .pairCol.side{flex:0 1 38%;min-width:220px}.pairRow.split .pairCol.main>*,.pairRow.split .pairCol.side>*{width:100%}.pairRow.stack{display:block}.pairRow.stack .pairCol+.pairCol{margin-top:14px}.flowText{position:relative;padding-top:28px}.flowText.align-left{margin-left:0;margin-right:auto}.flowText.align-center{margin-left:auto;margin-right:auto}.flowText.align-right{margin-left:auto;margin-right:0}.flowTextTools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.flowTextLabel{display:inline-block;font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:grab;user-select:none}.flowText.dragging .flowTextLabel{cursor:grabbing}.smartWidget{position:relative;display:block;overflow:visible;box-sizing:border-box;--widget-scale:1;width:100%;max-width:100%;min-width:140px;padding-top:30px;padding-bottom:18px;margin-bottom:18px;transition:transform .12s ease}.smartWidget+.smartWidget{margin-top:12px}.smartWidget.align-left{margin-left:0;margin-right:auto}.smartWidget.align-center{margin-left:auto;margin-right:auto}.smartWidget.align-right{margin-left:auto;margin-right:0}.smartWidgetInner{display:block;transform:scale(var(--widget-scale));transform-origin:top left;width:calc(100% / var(--widget-scale))}.widgetTools{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;z-index:4}.widgetLabel{display:inline-block;font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:grab;user-select:none}.smartWidget.dragging .widgetLabel{cursor:grabbing}.widgetDragGuide{display:flex;gap:6px;align-items:center}.widgetDragGuide span{font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:pointer;user-select:none}.widgetDragGuide span.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}.widgetBtns{display:flex;align-items:center;gap:6px}.widgetBtns button{padding:4px 7px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#111827;font-size:11px;font-weight:900;cursor:pointer}.widgetBtns button.del{background:#fee2e2;color:#7f1d1d;border-color:#fecaca}.widgetScale{font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px}.widgetHandle{position:absolute;right:-9px;bottom:-9px;width:18px;height:18px;border-radius:50%;background:#1a1a2e;border:2px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,.2);cursor:nwse-resize;z-index:4}.smartGhost{margin-top:10px;border:1px dashed #cbd5e1;border-radius:12px;background:#f8fafc;padding:12px;text-align:center}.smartGhost button{padding:7px 10px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#111827;font-size:12px;font-weight:800;cursor:pointer}.articlePanel{background:#ffffff;border:1px solid #ebe7da;border-radius:14px;padding:18px 20px}.articlePanel .p:last-child{margin-bottom:0}.smartStatic{display:block}.smartStatic .box,.smartStatic .quote,.smartStatic .nums{width:auto;max-width:100%}@media (max-width:1200px){.grid{grid-template-columns:1fr}.previewStage{height:760px}}
+.pairRow{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}.pairRow.split{display:grid;grid-template-columns:minmax(0,1.95fr) minmax(248px,.82fr);gap:28px;align-items:start}.pairRow.split .pairCol{display:block;min-width:0}.pairRow.split .pairCol.main,.pairRow.split .pairCol.side{min-width:0}.pairRow.split .pairCol.main>*,.pairRow.split .pairCol.side>*{width:100%}.pairRow.split .pairCol.side{padding-top:0}.pairRow.stack{display:block}.pairRow.stack .pairCol+.pairCol{margin-top:14px}.flowText{position:relative;padding-top:0}.flowText.align-left{margin-left:0;margin-right:auto}.flowText.align-center{margin-left:auto;margin-right:auto}.flowText.align-right{margin-left:auto;margin-right:0}.flowTextTools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.flowTextLabel{display:inline-block;font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:grab;user-select:none}.flowText.dragging .flowTextLabel{cursor:grabbing}.smartWidget{position:relative;display:block;overflow:visible;box-sizing:border-box;--widget-scale:1;width:100%;max-width:100%;min-width:140px;padding-top:30px;padding-bottom:18px;margin-bottom:18px;transition:transform .12s ease}.smartWidget+.smartWidget{margin-top:12px}.smartWidget.align-left{margin-left:0;margin-right:auto}.smartWidget.align-center{margin-left:auto;margin-right:auto}.smartWidget.align-right{margin-left:auto;margin-right:0}.smartWidgetInner{display:block;transform:scale(var(--widget-scale));transform-origin:top left;width:calc(100% / var(--widget-scale))}.widgetTools{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;z-index:4}.widgetLabel{display:inline-block;font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:grab;user-select:none}.smartWidget.dragging .widgetLabel{cursor:grabbing}.widgetDragGuide{display:flex;gap:6px;align-items:center}.widgetDragGuide span{font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px;cursor:pointer;user-select:none}.widgetDragGuide span.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}.widgetBtns{display:flex;align-items:center;gap:6px}.widgetBtns button{padding:4px 7px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#111827;font-size:11px;font-weight:900;cursor:pointer}.widgetBtns button.del{background:#fee2e2;color:#7f1d1d;border-color:#fecaca}.widgetScale{font-size:11px;font-weight:800;color:#6b7280;background:rgba(255,255,255,.95);border:1px solid #d1d5db;border-radius:999px;padding:3px 8px}.widgetHandle{position:absolute;right:-9px;bottom:-9px;width:18px;height:18px;border-radius:50%;background:#1a1a2e;border:2px solid #fff;box-shadow:0 2px 7px rgba(0,0,0,.2);cursor:nwse-resize;z-index:4}.smartGhost{margin-top:10px;border:1px dashed #cbd5e1;border-radius:12px;background:#f8fafc;padding:12px;text-align:center}.smartGhost button{padding:7px 10px;border-radius:10px;border:1px solid #cbd5e1;background:#fff;color:#111827;font-size:12px;font-weight:800;cursor:pointer}.articlePanel{background:#ffffff;border:1px solid #ebe7da;border-radius:14px;padding:22px 24px;min-height:100%;box-sizing:border-box}.articlePanel.onTint{background:transparent;border-color:transparent;border-radius:0;padding:0}.articlePanel .p:last-child{margin-bottom:0}.sideCard{background:#fdfcf9;border:1px solid #e6e0cf;border-left:4px solid #c8960c;border-radius:14px;padding:18px 18px 16px 18px;min-height:100%;box-sizing:border-box;max-width:320px}.sideCard .t{margin:0 0 12px 0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7a7a7a}.sideCard .smallBtn{display:inline-flex;align-items:center;justify-content:center;width:auto;min-width:148px;text-align:center;padding:10px 16px;border-radius:7px}.sideCard .metaLine{display:block;width:100%;font-size:11px;line-height:1.42;color:#6b7280;font-weight:700;margin-top:12px;overflow-wrap:anywhere;word-break:break-word}.socialCard .icons{margin:10px 0 14px 0}.pairCol.side .smartStatic{display:flex;justify-content:flex-start}.pairCol.side .sideCard{margin-left:0}.socialCard .smallBtn,.contactCard .smallBtn{margin-top:4px}.socialCard .p,.contactCard .p{margin-bottom:12px;max-width:none}.smartStatic{display:block}.smartStatic .box,.smartStatic .quote,.smartStatic .nums{width:auto;max-width:100%}.previewCTA{background:#fbfaf6;border:1px solid #ece3c6;border-radius:14px;padding:20px 22px}.footerNote{opacity:.95}@media (max-width:1200px){.grid{grid-template-columns:1fr}.previewStage{height:760px}}@media (max-width:700px){.pairRow.split{grid-template-columns:1fr}.pairRow.split .pairCol.side{padding-top:0 !important;margin-top:0}.sideCard .smallBtn{width:100%;min-width:0;display:flex}}
 </style>
 </head>
 <body>
@@ -62,12 +62,12 @@ textarea{min-height:88px;resize:vertical}
       <div class="sub">Upravuj newsletter pohodlně: sekce zůstávají stabilní a obrázky můžeš stále přesouvat a zmenšovat.</div>
     </div>
     <div class="toolbar">
-      <button class="primary" id="copyHtml">Kopírovat čisté HTML pro Outlook</button>
-      <button class="ghost" id="downloadHtml" onclick="downloadHtmlNow(); return false;">Stáhnout HTML</button>
-      <button class="ghost" id="copySubject" onclick="copySubjectNow(); return false;">Kopírovat předmět</button>
-      <button class="ghost mini" id="save" onclick="saveNow(); return false;">Uložit</button>
-      <button class="ghost mini" id="load" onclick="loadNow(); return false;">Načíst</button>
-      <button class="danger" id="reset" onclick="resetNow(); return false;">Reset</button>
+      <button class="primary" id="copyOut">Kopírovat čisté HTML pro Outlook</button>
+      <button class="ghost" id="downloadHtml">Stáhnout HTML</button>
+      <button class="ghost" id="copySubject">Kopírovat předmět</button>
+      <button class="ghost mini" id="save">Uložit</button>
+      <button class="ghost mini" id="load">Načíst</button>
+      <button class="danger" id="reset">Reset</button>
       <span class="status" id="status">Připraveno</span>
     </div>
   </div>
@@ -170,7 +170,7 @@ textarea{min-height:88px;resize:vertical}
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const STORAGE_KEY = 'newsletter_v17';
+  const STORAGE_KEY = 'newsletter_v27';
   let state = null;
   let selectedId = null;
   let lastHtml = '';
@@ -439,8 +439,8 @@ textarea{min-height:88px;resize:vertical}
   function renderAsideBoxPreview(s, idx){
     const st = state.settings;
     const base = `sections.${idx}`;
-    if (s.side_mode === 'socials') return `<div class="box"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p><p class="p" style="font-size:14px;line-height:1.68;margin:0 0 14px 0;color:#374151">Sleduj novinky, krátká povzbuzení i nové pozvánky na našich sociálních sítích.</p><div class="icons"><a href="${esc(st.url_fb)}" target="_blank"><img src="${esc(st.ic_fb)}" alt="Facebook"></a><a href="${esc(st.url_ig)}" target="_blank"><img src="${esc(st.ic_ig)}" alt="Instagram"></a><a href="${esc(st.url_yt)}" target="_blank"><img src="${esc(st.ic_yt)}" alt="YouTube"></a></div><a class="smallBtn" href="${esc(s.button_url || st.url_signup)}" target="_blank">${esc(s.button_label||'Více')}</a></div>`;
-    if (s.side_mode === 'contact') return `<div class="box"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p><div style="font-size:14px;line-height:1.72;color:#374151;margin-bottom:14px">${editableParas(base + '.side_text', s.side_text, 'p')}</div><div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start"><a class="smallBtn" href="mailto:${esc(st.contact_email)}">${esc(s.button_label||'Napište nám')}</a><div style="font-size:13px;color:#6b7280;font-weight:700">${esc(st.contact_email)}</div></div></div>`;
+    if (s.side_mode === 'socials') return `<div class="box sideCard socialCard"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p><p class="p" style="font-size:14px;line-height:1.6;margin:0 0 10px 0;color:#374151">Sleduj novinky, povzbuzení i nové pozvánky na našich sociálních sítích.</p><div class="icons"><a href="${esc(st.url_fb)}" target="_blank"><img src="${esc(st.ic_fb)}" alt="Facebook"></a><a href="${esc(st.url_ig)}" target="_blank"><img src="${esc(st.ic_ig)}" alt="Instagram"></a><a href="${esc(st.url_yt)}" target="_blank"><img src="${esc(st.ic_yt)}" alt="YouTube"></a></div><a class="smallBtn" href="${esc(s.button_url || st.url_signup)}" target="_blank">${esc(s.button_label||'Odběr newsletteru')}</a></div>`;
+    if (s.side_mode === 'contact') return `<div class="box sideCard contactCard"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p><div style="font-size:14px;line-height:1.6;color:#374151;margin-bottom:12px">${editableParas(base + '.side_text', s.side_text, 'p')}</div><div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start"><a class="smallBtn" href="mailto:${esc(st.contact_email)}">${esc(s.button_label||'Napište nám')}</a><a class="metaLine" href="mailto:${esc(st.contact_email)}" style="text-decoration:none">${esc(st.contact_email)}</a></div></div>`;
     return `<div class="box"><p class="t">${editable(base + '.side_title', s.side_title, 'span')}</p>${editableParas(base + '.side_text', s.side_text, 'p')}${lines(s.plain_items).map(line=>`<div class="p editable" contenteditable="true" spellcheck="false" data-edit="${esc(base + '.plain_items')}" data-edit-mode="lines" style="font-size:14px;line-height:1.85;margin-bottom:0">&#9679;&nbsp; ${esc(line)}</div>`).join('')}${s.button_label ? `<div style="margin-top:10px"><a class="smallBtn" href="${esc(s.button_url||'#')}" target="_blank">${esc(s.button_label)}</a></div>` : ''}</div>`;
   }
 
@@ -460,7 +460,7 @@ textarea{min-height:88px;resize:vertical}
   function renderPreviewTextWidgetPair(textPath, textLabel, textHtml, sidePath, sideLabel, sideHtml){
     const t = renderFlowText(textPath, textLabel, textHtml);
     const s = renderSmartWidget(sidePath, sideHtml, sideLabel);
-    return `<div class="pairRow split"><div class="pairCol main">${t}</div><div class="pairCol side" style="padding-top:2px">${s}</div></div>`;
+    return `<div class="pairRow split"><div class="pairCol main">${t}</div><div class="pairCol side">${s}</div></div>`;
   }
   function renderEmailWidgetPair(pathA, htmlA, pathB, htmlB){
     return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td valign="top" width="55%" style="padding-right:16px;">${htmlA}</td><td valign="top" width="45%" style="padding-left:16px;">${htmlB}</td></tr></table>`;
@@ -470,7 +470,7 @@ textarea{min-height:88px;resize:vertical}
   }
 
   function renderSectionPreview(s, idx){
-    const alt = idx % 2 === 1 ? ' alt' : '';
+    const alt = idx % 2 === 0 ? ' alt' : '';
     const base = `sections.${idx}`;
     if (s.type === 'feature') {
       const quoteCard = `<div class="quote"><div class="q">${editable(base + '.quote', s.quote)}</div><div class="r">${editable(base + '.quote_ref', s.quote_ref, 'span')}</div></div>`;
@@ -479,7 +479,8 @@ textarea{min-height:88px;resize:vertical}
     }
     if (s.type === 'plain') return `<div class="previewSection${alt}"><div class="titleBar"><div class="bar"></div><h2 class="h2">${editable(base + '.title', s.title)}</h2></div>${editableParas(base + '.text', s.text, 'p')}</div>`;
     if (s.type === 'aside') {
-      const textCard = `<div class="articlePanel">${editableParas(base + '.text', s.text, 'p')}</div>`;
+      const panelClass = alt ? 'articlePanel onTint' : 'articlePanel';
+      const textCard = `<div class="${panelClass}">${editableParas(base + '.text', s.text, 'p')}</div>`;
       return `<div class="previewSection${alt}"><div class="titleBar"><div class="bar"></div><h2 class="h2">${editable(base + '.title', s.title)}</h2></div>${renderPreviewTextWidgetPair(base + '.text_widget', 'Text', textCard, base + '.side_widget', s.side_title || 'Box', renderAsideBoxPreview(s, idx))}</div>`;
     }
     if (s.type === 'stats') {
@@ -506,13 +507,15 @@ textarea{min-height:88px;resize:vertical}
           ${sectionsHtml}
           <div class="previewDivider"></div>
           <div class="previewSection">
-            ${editableParas('cta.text1', cta.text1, 'p')}
-            ${editableParas('cta.text2', cta.text2, 'p')}
-            <div><a class="btn" href="${esc(s.url_signup)}" target="_blank">${esc(cta.button_label)}</a></div>
+            <div class="previewCTA">
+              ${editableParas('cta.text1', cta.text1, 'p')}
+              ${editableParas('cta.text2', cta.text2, 'p')}
+              <div style="padding-top:4px"><a class="btn" href="${esc(s.url_signup)}" target="_blank">${esc(cta.button_label)}</a></div>
+            </div>
           </div>
-          <div class="previewSection alt" style="text-align:center;padding-top:22px">
+          <div class="previewSection alt" style="text-align:center;padding-top:24px">
             ${editableLines('outro.text', outro.text, 'p', 'p')}
-            <p class="p" style="margin:4px 0 2px 0">${editable('outro.signoff', outro.signoff)}</p>
+            <p class="p footerNote" style="margin:6px 0 2px 0">${editable('outro.signoff', outro.signoff)}</p>
             <p class="p" style="font-size:17px;font-weight:700;color:#1a1a2e;margin-top:6px">${editable('outro.team', outro.team)}</p>
           </div>
         </div>
@@ -709,7 +712,7 @@ textarea{min-height:88px;resize:vertical}
     return Array.from({length:cfg.copies}, (_, i) => `${i ? '<div style="height:12px;font-size:12px;line-height:12px;">&nbsp;</div>' : ''}${html}`).join('');
   }
   function sectionEmail(s, idx, settings){
-    const bg = idx % 2 === 1 ? '#f8f8f8' : '#ffffff';
+    const bg = idx % 2 === 0 ? '#f8f8f8' : '#ffffff';
     const base = `sections.${idx}`;
     if (s.type === 'feature') {
       const quoteHtml = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;width:100%;"><tr><td bgcolor="#fdf8e8" style="background-color:#fdf8e8;border-left:4px solid #c8960c;padding:14px 15px;"><p style="margin:0 0 9px 0;font-size:14px;line-height:1.65;color:#4a3f1a;font-family:Georgia,'Times New Roman',serif;font-style:italic;"><font face="Georgia,serif" color="#4a3f1a">${esc(s.quote)}</font></p><p style="margin:0;font-size:12px;font-weight:700;color:#777777;font-family:'Open Sans',Calibri,Candara,'Segoe UI',Arial,sans-serif;"><font face="'Open Sans',Calibri,Arial,sans-serif" color="#777777">${esc(s.quote_ref)}</font></p></td></tr></table>`;
@@ -799,7 +802,7 @@ ${sectionsHtml}
   async function copySubject(){
     try{ const ok = await copyToClipboard($('subject').value || state.settings.subject || ''); if (ok) setStatus('Předmět zkopírován', 'ok'); else setStatus('Předmět označen'); }catch(e){ setStatus('Předmět označen'); }
   }
-  function downloadHtml(){ const blob = new Blob([$('out').value || lastHtml || renderEmailHTML()], {type:'text/html;charset=utf-8'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'newsletter_builder_v17.html'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 1800); setStatus('Staženo', 'ok'); }
+  function downloadHtml(){ const blob = new Blob([$('out').value || lastHtml || renderEmailHTML()], {type:'text/html;charset=utf-8'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'newsletter_builder_v27.html'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 1800); setStatus('Staženo', 'ok'); }
   function openNew(){ const w = window.open('', '_blank'); if (!w){ setStatus('Popup blokován'); return; } const html = $('out').value || lastHtml || renderEmailHTML(); w.document.open(); w.document.write(html); w.document.close(); }
   function switchTab(name){ document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name)); $('pane-preview').classList.toggle('active', name==='preview'); $('pane-html').classList.toggle('active', name==='html'); }
   function setZoom(v){ $('zoomVal').textContent = v + ' %'; $('previewHost').style.transform = `scale(${v/100})`; }
@@ -823,94 +826,25 @@ ${sectionsHtml}
     syncInputsFromState();
     wireFixedInputs();
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', ()=> switchTab(t.dataset.tab)));
-    $('copyHtml').addEventListener('click', copyHtml);
-    $('copySubject').addEventListener('click', copySubject);
-    $('downloadHtml').addEventListener('click', downloadHtml);
-    $('openNew').addEventListener('click', openNew);
-    $('refresh').addEventListener('click', ()=> { renderOutputs(); setStatus('Obnoveno', 'ok'); });
-    $('save').addEventListener('click', ()=> { persist(); setStatus('Uloženo', 'ok'); });
-    $('load').addEventListener('click', ()=> { const loaded = loadState(); if (!loaded){ setStatus('Nic k načtení'); return; } state = loaded; selectedId = state.sections[0]?.id || null; syncInputsFromState(); renderAll(); setStatus('Načteno', 'ok'); });
-    $('reset').addEventListener('click', reset);
-    $('zoom').addEventListener('input', e => setZoom(e.target.value));
-    setZoom($('zoom').value);
+    const bind = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
+    bind('copyOut', copyHtml);
+    bind('copyHtml', copyHtml);
+    bind('copySubject', copySubject);
+    bind('downloadHtml', downloadHtml);
+    bind('openNew', openNew);
+    bind('refresh', ()=> { renderOutputs(); setStatus('Obnoveno', 'ok'); });
+    bind('save', ()=> { persist(); setStatus('Uloženo', 'ok'); });
+    bind('load', ()=> { const loaded = loadState(); if (!loaded){ setStatus('Nic k načtení'); return; } state = loaded; selectedId = state.sections[0]?.id || null; syncInputsFromState(); renderAll(); setStatus('Načteno', 'ok'); });
+    bind('reset', reset);
+    const zoom = $('zoom');
+    if (zoom) {
+      zoom.addEventListener('input', e => setZoom(e.target.value));
+      setZoom(zoom.value);
+    }
     renderAll();
   }
   init();
 })();
-
-
-  function setTopStatus(msg){ const el = $('status'); if (el) el.textContent = msg; }
-  async function copyTextSafe(txt){
-    let ok = false;
-    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(txt); ok = true; } } catch(e) {}
-    if (!ok) {
-      try {
-        const ta = $('out') || document.createElement('textarea');
-        if (!ta.parentNode) { ta.style.position = 'fixed'; ta.style.left = '-9999px'; document.body.appendChild(ta); }
-        ta.value = txt;
-        ta.focus();
-        ta.select();
-        ta.setSelectionRange(0, ta.value.length);
-        ok = document.execCommand('copy');
-      } catch(e) {}
-    }
-    return !!ok;
-  }
-  async function copyOutlookHtmlNow(){
-    const html = renderEmailHTML();
-    lastHtml = html;
-    const out = $('out');
-    if (out) {
-      out.value = html;
-      out.focus();
-      out.select();
-      try { out.setSelectionRange(0, out.value.length); } catch(e) {}
-      out.scrollIntoView({behavior:'smooth', block:'center'});
-    }
-    const ok = await copyTextSafe(html);
-    setTopStatus(ok ? 'HTML zkopírováno' : 'HTML je dole označené v poli – stiskni Ctrl+C');
-    return false;
-  }
-  function downloadHtmlNow(){
-    const html = renderEmailHTML();
-    lastHtml = html;
-    if ($('out')) $('out').value = html;
-    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'newsletter_v16.html';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 150);
-    setTopStatus('HTML staženo');
-    return false;
-  }
-  async function copySubjectNow(){
-    syncStateFromSettings();
-    const ok = await copyTextSafe(state.settings.subject || '');
-    setTopStatus(ok ? 'Předmět zkopírován' : 'Kopírování selhalo');
-    return false;
-  }
-  function saveNow(){ syncStateFromSettings(); persist(); setTopStatus('Uloženo'); return false; }
-  function loadNow(){ const loaded = loadState(); if (!loaded) { setTopStatus('Nic k načtení'); return false; } state = loaded; syncInputsFromState(); renderSectionList(); renderOutputs(); setTopStatus('Načteno'); return false; }
-  function resetNow(){ if (!window.confirm('Opravdu resetovat celý newsletter?')) return false; state = defaultState(); persist(); syncInputsFromState(); renderSectionList(); renderOutputs(); setTopStatus('Resetováno'); return false; }
-  window.copyOutlookHtmlNow = copyOutlookHtmlNow;
-  window.downloadHtmlNow = downloadHtmlNow;
-  window.copySubjectNow = copySubjectNow;
-  window.saveNow = saveNow;
-  window.loadNow = loadNow;
-  window.resetNow = resetNow;
-  function bindTopBarActions(){
-    const map = { copyOut: copyOutlookHtmlNow, downloadHtml: downloadHtmlNow, copySubject: copySubjectNow, save: saveNow, load: loadNow, reset: resetNow };
-    Object.entries(map).forEach(([id, fn]) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.onclick = ev => { ev.preventDefault(); fn(); return false; };
-      el.addEventListener('click', ev => { ev.preventDefault(); fn(); return false; });
-    });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindTopBarActions); else bindTopBarActions();
-
 </script>
 </body>
 </html>
